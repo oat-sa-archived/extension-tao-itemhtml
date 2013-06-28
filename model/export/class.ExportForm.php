@@ -20,7 +20,7 @@
  */
 
 /**
- * Export form for QTI packages
+ * Export form for OWIs
  *
  * @access public
  * @author Joel Bout, <joel.bout@tudor.lu>
@@ -105,7 +105,7 @@ class taoOpenWebItem_model_export_ExportForm
     	}
 
 		$descElt = tao_helpers_form_FormFactory::getElement('xml_desc', 'Label');
-		$descElt->setValue(__("Enables you to export an IMS QTI Package."));
+		$descElt->setValue(__("Enables you to export an Open Web Item."));
 		$this->form->addElement($descElt);
 
 		$nameElt = tao_helpers_form_FormFactory::getElement('filename', 'Textbox');
