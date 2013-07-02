@@ -18,42 +18,6 @@
  *               
  * 
  */
-?>
-<?php
-
-error_reporting(E_ALL);
-
-/**
- * The XHTML parser enable you to validate the format and extract an XHTML
- * An XHTML package is valide when it's a zip archive containing at it's root a
- * file with the XHTML Transitional doctype, validate and well formed.
- * The external resources (media, css, scripts, images, etc.) in the package are
- * too.
- *
- * @author Jerome Bogaerts, <jerome.bogaerts@tudor.lu>
- * @package taoItems
- * @subpackage models_classes_XHTML
- */
-
-if (0 > version_compare(PHP_VERSION, '5')) {
-    die('This file was generated for PHP 5');
-}
-
-/**
- * The Parser enables you to load, parse and validate xml content from an xml
- * Usually used for to load and validate the itemContent  property.
- *
- * @author Jerome Bogaerts, <jerome.bogaerts@tudor.lu>
- */
-require_once('tao/models/classes/class.Parser.php');
-
-/* user defined includes */
-// section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:0000000000002869-includes begin
-// section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:0000000000002869-includes end
-
-/* user defined constants */
-// section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:0000000000002869-constants begin
-// section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:0000000000002869-constants end
 
 /**
  * The XHTML parser enable you to validate the format and extract an XHTML
@@ -67,7 +31,7 @@ require_once('tao/models/classes/class.Parser.php');
  * @package taoItems
  * @subpackage models_classes_XHTML
  */
-class taoItems_models_classes_XHTML_PackageParser
+class taoOpenWebItem_model_import_PackageParser
     extends tao_models_classes_Parser
 {
     // --- ASSOCIATIONS ---
@@ -129,25 +93,17 @@ class taoItems_models_classes_XHTML_PackageParser
         	
         	$this->valid = false;
         	
-			try{
-	    		$zip = new ZipArchive();
-	    		//check the archive opening and the consistency
-				if($zip->open($this->source, ZIPARCHIVE::CHECKCONS) !== true){
-					throw new Exception($zip->getStatusString());
+    		$zip = new ZipArchive();
+    		//check the archive opening and the consistency
+			if($zip->open($this->source, ZIPARCHIVE::CHECKCONS) !== false){
+				//check if the manifest is there
+				if($zip->locateName("index.html") !== false){
+				    $this->valid = true;
+				} else {
+				    $this->addError(__("An Open Web Item package must contain an index.html file at the root of the archive"));
 				}
-				else{
-					//check if the manifest is there
-					if($zip->locateName("index.html") === false){
-						throw new Exception("A Open Web Item package must contains a index.html file at the root of the archive");
-					}
-					
-					$this->valid = true;
-				}
-				$zip->close();
-			}
-			catch(Exception $e){
-				$this->addError($e);
-				$zip->close();
+			} else {
+			    $this->addError($zip->getStatusString());
 			}
         }
     	$returnValue = $this->valid;
@@ -188,6 +144,6 @@ class taoItems_models_classes_XHTML_PackageParser
         return (string) $returnValue;
     }
 
-} /* end of class taoItems_models_classes_XHTML_PackageParser */
+}
 
 ?>

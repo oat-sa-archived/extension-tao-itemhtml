@@ -26,8 +26,7 @@
  * @package taoItems
  * @subpackage models_classes_XHTML
  */
-class taoItems_models_classes_XHTML_ImportService
-	extends tao_models_classes_GenerisService
+class taoOpenWebItem_model_import_ImportService
 {
 
 	/**
@@ -36,22 +35,16 @@ class taoItems_models_classes_XHTML_ImportService
 	 *
 	 * @access public
 	 * @author Joel Bout, <joel.bout@tudor.lu>
-	 * @param  string qtiFile
+	 * @param  string xhtmlFile
 	 * @param  Class itemClass
 	 * @param  boolean validate
 	 * @param  Repository repository
-	 * @return core_kernel_classes_Resource
+	 * @return common_report_Report
 	 */
 	public function importXhtmlFile($xhtmlFile,  core_kernel_classes_Class $itemClass, $validate = true,  core_kernel_versioning_Repository $repository = null)
 	{
 		$returnValue = null;
-		
-		/*
-		$repository = is_null($repository)
-			? taoItems_models_classes_ItemsService::singleton()->getDefaultFileSource()
-			: $repository;
-		*/
-			
+
 		//get the services instances we will need
 		$itemService	= taoItems_models_classes_ItemsService::singleton();
 	
@@ -60,60 +53,55 @@ class taoItems_models_classes_XHTML_ImportService
 		}
 
 		//load and validate the package
-		$packageParser = new taoItems_models_classes_XHTML_PackageParser($xhtmlFile);
+		$packageParser = new taoOpenWebItem_model_import_PackageParser($xhtmlFile);
 		$packageParser->validate();
 
-		if(!$packageParser->isValid()){
-			$error = '';
-			foreach ($packageParser->getErrors() as $arr) {
-				$error .= $arr['message'].' ';
-			}
-			common_Logger::w('Parser Errors: '.$error);
-			throw new taoItems_models_classes_Import_ParsingException();
+		if($packageParser->isValid()){
+		
+    		//extract the package
+    		$folder = $packageParser->extract();
+    		if(!is_dir($folder)){
+    			throw new taoItems_models_classes_Import_ExtractException();
+    		}
+    				
+    		//load and validate the manifest
+    		$fileParser = new tao_models_classes_Parser($folder .'/index.html', array('extension' => 'html'));
+    		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
+    		$fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
+    		
+    		if(!$validate || $fileParser->isValid()){
+    				
+        		//create a new item in the model
+        		$rdfItem = $itemService->createInstance($itemClass);
+        		if(is_null($rdfItem)){
+        			helpers_File::remove($folder);
+        			throw new common_exception_Error('Unable to create instance of '.$itemClass->getUri());
+        		}
+        		
+        		//set the XHTML type
+        		$rdfItem->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
+        		
+        		$itemContent = file_get_contents($folder .'/index.html');
+        		$itemService->setItemContent($rdfItem, $itemContent, null, 'HOLD_COMMIT');
+        
+        		$itemPath = $itemService->getItemFolder($rdfItem);
+        		if(!tao_helpers_File::move($folder, $itemPath)){
+        			common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
+        			// clean up
+        			$itemService->delete($rdfItem);
+        			helpers_File::remove($folder);
+        			throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
+        		}
+        		$returnValue = common_report_Report::createSuccess(__('Item was successfully imported'), $rdfItem);
+    		} else {
+    		    helpers_File::remove($folder);
+    		    $returnValue = $fileParser->getReport();
+			    $returnValue->setTitle(__('Validation of the imported file has failed'));
+    		}
+		} else {
+			$returnValue = $packageParser->getReport();
+			$returnValue->setTitle(__('Validation of the imported package has failed'));
 		}	
-		
-		//extract the package
-		$folder = $packageParser->extract();
-		if(!is_dir($folder)){
-			throw new taoItems_models_classes_Import_ExtractException();
-		}
-				
-		//load and validate the manifest
-		$fileParser = new tao_models_classes_Parser($folder .'/index.html', array('extension' => 'html'));
-		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
-		$fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
-		
-		if($validate && !$fileParser->isValid()){
-			$error = '';
-			foreach ($fileParser->getErrors() as $arr) {
-				$error .= $arr['message'].' ';
-			}
-			common_Logger::w('Parser Errors: '.$error);
-			helpers_File::remove($folder);
-			throw new taoItems_models_classes_Import_ParsingException();
-		}
-				
-		//create a new item in the model
-		$returnValue = $itemService->createInstance($itemClass);
-		if(is_null($returnValue)){
-			helpers_File::remove($folder);
-			throw new common_exception_Error('Unable to create instance of '.$itemClass->getUri());
-		}
-		
-		//set the XHTML type
-		$returnValue->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
-		
-		$itemContent = file_get_contents($folder .'/index.html');
-		$itemService->setItemContent($returnValue, $itemContent, null, 'HOLD_COMMIT');
-
-		$itemPath = $itemService->getItemFolder($returnValue);
-		if(!tao_helpers_File::move($folder, $itemPath)){
-			common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
-			// clean up
-			$itemService->delete($returnValue);
-			helpers_File::remove($folder);
-			throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
-		}
 		
 		// $folder has been moved, no need to delete it here
 		
