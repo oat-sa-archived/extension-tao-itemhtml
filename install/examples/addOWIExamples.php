@@ -25,11 +25,13 @@ $files		= array(	dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Googlemaps.zip',
 					 	dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Mammals.zip',
 						dirname(__FILE__) . DIRECTORY_SEPARATOR . 'MammalsRTL.zip');
 
-$service = taoOpenWebItem_model_import_ImportService::singleton();
+$service = new taoOpenWebItem_model_import_ImportService();
 
 foreach ($files as $file) {
-	$item = $service->importXhtmlFile($file, $itemClass, false);
+	$report = $service->importXhtmlFile($file, $itemClass, false);
 	$path_parts = pathinfo($file);
 	$label = $path_parts['filename'];
+	$success = $report->getSuccesses();
+	$item = current($success)->getData();
 	$item->setLabel($label);
 }
