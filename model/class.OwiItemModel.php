@@ -28,7 +28,7 @@
  * @subpackage models_classes_XHTML
  */
 class taoOpenWebItem_model_OwiItemModel
-	implements taoItems_models_classes_ExportableItemModel
+	implements taoItems_models_classes_ExportableItemModel, taoItems_models_classes_ImportableItemModel
 {
     /**
      * default constructor to ensure the implementation
@@ -181,6 +181,12 @@ class taoOpenWebItem_model_OwiItemModel
 	public function getExportHandlers() {
 		return array(
 			new taoOpenWebItem_model_export_OwiExportHandler()
+		);
+	}
+	
+	public function getImportHandlers() {
+		return array(
+			new taoOpenWebItem_model_import_OwiImportHandler()
 		);
 	}
 }
