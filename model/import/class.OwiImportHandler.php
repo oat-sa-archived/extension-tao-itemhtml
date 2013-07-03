@@ -35,7 +35,7 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
      * @see tao_models_classes_import_ImportHandler::getLabel()
      */
     public function getLabel() {
-    	return __('Open Web Item Package');
+    	return __('Open Web Item');
     }
     
     /**
