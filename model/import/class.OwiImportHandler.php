@@ -40,7 +40,7 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
     
     /**
      * (non-PHPdoc)
-     * @see tao_models_classes_export_ExportHandler::getForm()
+     * @see tao_models_classes_import_ImportHandler::getForm()
      */
     public function getForm() {
     	$form = new taoOpenWebItem_model_import_OwiImportForm();

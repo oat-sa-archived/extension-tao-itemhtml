@@ -32,7 +32,7 @@ class taoOpenWebItem_model_export_OwiExportHandler implements tao_models_classes
 
     /**
      * (non-PHPdoc)
-     * @see tao_models_classes_exportHandler::getLabel()
+     * @see tao_models_classes_export_ExportHandler::getLabel()
      */
     public function getLabel() {
     	return __('Open Web Item');
@@ -40,16 +40,21 @@ class taoOpenWebItem_model_export_OwiExportHandler implements tao_models_classes
     
     /**
      * (non-PHPdoc)
-     * @see tao_models_classes_exportHandler::getForm()
+     * @see tao_models_classes_export_ExportHandler::getExportForm()
      */
-    public function getForm($data) {
-    	$form = new taoOpenWebItem_model_export_ExportForm($data);
+    public function getExportForm(core_kernel_classes_Resource $resource) {
+        if ($resource instanceof core_kernel_classes_Class) {
+            $formData= array('class' => $resource);
+        } else {
+            $formData= array('instance' => $resource);
+        }
+    	$form = new taoOpenWebItem_model_export_ExportForm($formData);
     	return $form->getForm();
     }
     
     /**
      * (non-PHPdoc)
-     * @see tao_models_classes_exportHandler::export()
+     * @see tao_models_classes_export_ExportHandler::export()
      */
     public function export($formValues, $destination) {
     	$file = null;
