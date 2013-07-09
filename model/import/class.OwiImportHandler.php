@@ -51,28 +51,24 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::import()
      */
-    public function import($class, $formValues) {
+    public function import($class, $form) {
 		
+        $fileInfo = $form->getValue('source');
         //import for CSV
-        if(isset($formValues['source'])){
+        if(isset($fileInfo)){
 			
 			set_time_limit(200);	//the zip extraction is a long process that can exced the 30s timeout
 			
 			//get the services instances we will need
 			$itemService	= taoItems_models_classes_ItemsService::singleton();
 			
-			$uploadedFile = $formValues['source']['uploaded_file'];
+			$uploadedFile = $fileInfo['uploaded_file'];
 			$uploadedFileBaseName = basename($uploadedFile);
 			// uploaded file name contains an extra prefix that we have to remove.
 			$uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
 			$uploadedFileBaseName = preg_replace('/.zip|.ZIP$/', '', $uploadedFileBaseName);
 			
-			$validate = true;
-			if(isset($formValues['disable_validation'])){
-				if(is_array($formValues['disable_validation'])){
-					$validate = false;
-				}
-			}
+			$validate = count($form->getValue('disable_validation')) == 0 ? true : false;
 			
 			$importService = new taoOpenWebItem_model_import_ImportService();
 			try {
