@@ -28,7 +28,9 @@
  * @subpackage models_classes_XHTML
  */
 class taoOpenWebItem_model_OwiItemModel
-	implements taoItems_models_classes_ExportableItemModel, taoItems_models_classes_ImportableItemModel
+	implements  taoItems_models_classes_itemModel
+		,taoItems_models_classes_ExportableItemModel
+		,taoItems_models_classes_ImportableItemModel
 {
     /**
      * default constructor to ensure the implementation
@@ -52,8 +54,8 @@ class taoOpenWebItem_model_OwiItemModel
         $xhtml = $itemsService->getItemContent($item);
         
         // Check if all needed APIs are referenced.
-        $xhtml = self::referenceApis($xhtml); // throws ItemModelException.
-        //$xhtml = $this->replaceDeprecatedApis($xhtml); // throws ItemModelException.
+        //$xhtml = self::referenceApis($xhtml); // throws ItemModelException.
+        $xhtml = $this->replaceDeprecatedApis($xhtml); // throws ItemModelException.
 
         return $xhtml;
     }
@@ -64,7 +66,7 @@ class taoOpenWebItem_model_OwiItemModel
      * 
      * @param Resource $item
      */
-    public function replaceDeprecatedApis($xhtml) {
+    protected function replaceDeprecatedApis($xhtml) {
     	$dom = new DOMDocument('1.0', TAO_DEFAULT_ENCODING);
     	if (!$dom->loadHTML($xhtml)){
     		throw new taoItems_models_classes_ItemModelException("An error occured while loading the XML content of the rendered item.");
@@ -78,7 +80,7 @@ class taoOpenWebItem_model_OwiItemModel
     	if ($found > 0) {
     		common_Logger::i('found '.$found.' references to deprecated APIs, replacing with legacy API');
 	    	$taoItemsExt = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems');
-	    	$legacyApiSrc = $taoItemsExt->getConstant('BASE_WWW') . 'js/taoApi/taoApi.min.js';
+	    	$legacyApiSrc = $taoItemsExt->getConstant('BASE_WWW') . 'js/legacyApi/taoLegacyApi.min.js';
 	    	taoItems_helpers_Xhtml::addScriptElement($dom, $legacyApiSrc);
     	}
     	return $dom->saveHTML();
@@ -92,12 +94,12 @@ class taoOpenWebItem_model_OwiItemModel
      * - wfApi (only if the wfEngine extension is installed)
      * 
      * @author Jerome Bogaerts, <jerome@taotesting.com>
-     * @access public
+     * @access protected
      * @param string $xhtml An XHTML stream as a string.
      * @return string An XHTML stream as a string with new references to APIs.
      * @throws taoItems_models_classes_ItemModelException If the item content cannot be parsed or contains errors.
      */
-    public static function referenceApis($xhtml){
+    protected static function referenceApis($xhtml){
     	try{
     		$dom = new DOMDocument('1.0', TAO_DEFAULT_ENCODING);
     		if (!$dom->loadHTML($xhtml)){
@@ -138,11 +140,11 @@ class taoOpenWebItem_model_OwiItemModel
      * 						   ...);
      * </code>
      * 
-     * @access public
+     * @access protected
      * @author Jerome Bogaerts, <jerome@taotesting.com>
      * @return array An associative array.
      */
-    public static function buildApisArray(){
+    protected static function buildApisArray(){
    		$extManager = common_ext_ExtensionsManager::singleton();
     	$taoItemsExt = $extManager->getExtensionById('taoItems');
     	$taoItemsBaseWww = $taoItemsExt->getConstant('BASE_WWW');
@@ -177,6 +179,24 @@ class taoOpenWebItem_model_OwiItemModel
     	
     	return $apis;
     }
+
+	public function deployItem( core_kernel_classes_Resource $item, $language, $destination, $options = array()) {
+    	$itemService = taoItems_models_classes_ItemsService::singleton();
+		 
+    	// copy local files
+    	$source = $itemService->getItemFolder($item, $language);
+    	taoItems_helpers_Deployment::copyResources($source, $destination, array('index.html'));
+		
+    	// render item
+		$xhtml = $this->render($item);
+		 
+    	// retrieve external resources
+    	$xhtml = taoItems_helpers_Deployment::retrieveExternalResources($xhtml, $destination);
+    	
+    	// write index.html
+    	file_put_contents($destination.'index.html', $xhtml);
+		return true;
+	}
     
 	public function getExportHandlers() {
 		return array(
@@ -190,4 +210,3 @@ class taoOpenWebItem_model_OwiItemModel
 		);
 	}
 }
-?>
