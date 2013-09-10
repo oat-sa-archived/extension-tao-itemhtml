@@ -56,7 +56,7 @@ return array(
 		"DIR_VIEWS"				=> $extpath."views".DIRECTORY_SEPARATOR,
 	
 		# default module name
-		'DEFAULT_MODULE_NAME'	=> 'Items',
+		'DEFAULT_MODULE_NAME'	=> 'OpenWebItem',
 	
 		#default action name
 		'DEFAULT_ACTION_NAME'	=> 'index',
