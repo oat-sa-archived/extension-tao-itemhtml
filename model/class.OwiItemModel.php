@@ -209,4 +209,8 @@ class taoOpenWebItem_model_OwiItemModel
 			new taoOpenWebItem_model_import_OwiImportHandler()
 		);
 	}
+	
+	public function getCompiler(core_kernel_classes_Resource $item) {
+	    return new taoItems_models_classes_ItemCompiler($item);
+	}
 }
