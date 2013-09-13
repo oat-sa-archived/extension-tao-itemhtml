@@ -30,7 +30,7 @@ $extpath = dirname(__FILE__).DIRECTORY_SEPARATOR;
 $taopath = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'tao'.DIRECTORY_SEPARATOR;
 
 return array(
-	'name' => 'taoOpenWebItems',
+	'name' => 'taoOpenWebItem',
 	'description' => 'the TAO Items extension provides the Open Web Item Itemtype',
 	'version' => '2.5',
 	'author' => 'Open Assessment Technologies',
@@ -65,10 +65,10 @@ return array(
 		'BASE_PATH'				=> $extpath,
 	
 		#BASE URL (usually the domain root)
-		'BASE_URL'				=> ROOT_URL	.'taoOpenWebItems/',
+		'BASE_URL'				=> ROOT_URL	.'taoOpenWebItem/',
 	
 		#BASE WWW the web resources path
-		'BASE_WWW'				=> ROOT_URL	.'taoOpenWebItems/views/',
+		'BASE_WWW'				=> ROOT_URL	.'taoOpenWebItem/views/',
 	
 		#BASE DATA the path where items are stored
 		'BASE_DATA'				=> $extpath.'data'.DIRECTORY_SEPARATOR,
