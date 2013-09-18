@@ -48,7 +48,7 @@ class taoOpenWebItem_model_OwiItemModel
      * @return string The rendered item.
      * @throws taoItems_models_classes_ItemModelException
      */
-    public function render( core_kernel_classes_Resource $item)
+    public function render( core_kernel_classes_Resource $item, $langCode)
     {
     	$itemsService = taoItems_models_classes_ItemsService::singleton();
         $xhtml = $itemsService->getItemContent($item);
@@ -180,24 +180,6 @@ class taoOpenWebItem_model_OwiItemModel
     	return $apis;
     }
 
-	public function deployItem( core_kernel_classes_Resource $item, $language, $destination, $options = array()) {
-    	$itemService = taoItems_models_classes_ItemsService::singleton();
-		 
-    	// copy local files
-    	$source = $itemService->getItemFolder($item, $language);
-    	taoItems_helpers_Deployment::copyResources($source, $destination, array('index.html'));
-		
-    	// render item
-		$xhtml = $this->render($item);
-		 
-    	// retrieve external resources
-    	$xhtml = taoItems_helpers_Deployment::retrieveExternalResources($xhtml, $destination);
-    	
-    	// write index.html
-    	file_put_contents($destination.'index.html', $xhtml);
-		return true;
-	}
-    
 	public function getExportHandlers() {
 		return array(
 			new taoOpenWebItem_model_export_OwiExportHandler()
