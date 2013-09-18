@@ -51,7 +51,7 @@ class taoOpenWebItem_model_OwiItemModel
     public function render( core_kernel_classes_Resource $item, $langCode)
     {
     	$itemsService = taoItems_models_classes_ItemsService::singleton();
-        $xhtml = $itemsService->getItemContent($item);
+        $xhtml = $itemsService->getItemContent($item, $langCode);
         
         // Check if all needed APIs are referenced.
         //$xhtml = self::referenceApis($xhtml); // throws ItemModelException.
