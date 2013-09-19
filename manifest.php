@@ -48,6 +48,7 @@ return array(
 				dirname(__FILE__).'/install/examples/addOWIExamples.php'
 		)
 	),
+    'managementRole' => 'http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole',
 	'constants' => array(
 		# actions directory
 		"DIR_ACTIONS"			=> $extpath."actions".DIRECTORY_SEPARATOR,
