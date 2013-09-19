@@ -60,6 +60,14 @@ class taoOpenWebItem_model_OwiItemModel
         return $xhtml;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see taoItems_models_classes_itemModel::getPreviewUrl()
+     */
+    public function getPreviewUrl( core_kernel_classes_Resource $item, $languageCode) {
+        return _url('index', 'ItemPreview', 'taoItems', array('uri' => $item->getUri(), 'lang' => $languageCode));
+    }
+    
 	
     /**
      * Removes unnescessary API references
