@@ -108,7 +108,57 @@ class taoOpenWebItem_model_import_ImportService
 		return $returnValue;
 
 	}
+	
+	/**
+	 * import the owi as content into an existing item
+	 * replacing the old content
+	 * 
+	 * @param string $package
+	 * @param core_kernel_classeS_resource $item
+	 * @param string $language
+	 * @param string $validate
+	 * @throws taoItems_models_classes_Import_ExtractException
+	 * @throws taoItems_models_classes_Import_ImportException
+	 * @return common_report_Report
+	 */
+	public function importContent($package, $item, $language = '', $validate = true) {
+	    //load and validate the package
+	    $packageParser = new taoOpenWebItem_model_import_PackageParser($package);
+	    $packageParser->validate();
+	    
+	    if($packageParser->isValid()){
+	    
+	        //extract the package
+	        $folder = $packageParser->extract();
+	        if(!is_dir($folder)){
+	            throw new taoItems_models_classes_Import_ExtractException();
+	        }
+	    
+	        //load and validate the manifest
+	        $fileParser = new tao_models_classes_Parser($folder .'/index.html', array('extension' => 'html'));
+	        $taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
+	        $fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
+	    
+	        if(!$validate || $fileParser->isValid()){
+	    
+	            $itemContent = file_get_contents($folder .'/index.html');
+	            $itemPath = taoItems_models_classes_ItemsService::singleton()->getItemFolder($item, $language);
+	            if(!tao_helpers_File::move($folder, $itemPath)){
+	                common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
+	                helpers_File::remove($folder);
+	                throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
+	            }
+	            $returnValue = common_report_Report::createSuccess(__('Item was successfully imported'));
+	        } else {
+	            helpers_File::remove($folder);
+	            $returnValue = $fileParser->getReport();
+	            $returnValue->setTitle(__('Validation of the imported file has failed'));
+	        }
+	    } else {
+	        $returnValue = $packageParser->getReport();
+	        $returnValue->setTitle(__('Validation of the imported package has failed'));
+	    }
+	    return $returnValue;
+	}
 
 }
-
-?>

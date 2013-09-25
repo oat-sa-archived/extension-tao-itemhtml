@@ -46,6 +46,15 @@ class taoOpenWebItem_model_import_OwiImportForm
     public function initForm()
     {
     	$this->form = new tao_helpers_form_xhtml_Form('export');
+    	
+    	$this->form->setDecorators(array(
+    	    'element'			=> new tao_helpers_form_xhtml_TagWrapper(array('tag' => 'div')),
+    	    'group'				=> new tao_helpers_form_xhtml_TagWrapper(array('tag' => 'div', 'cssClass' => 'form-group')),
+    	    'error'				=> new tao_helpers_form_xhtml_TagWrapper(array('tag' => 'div', 'cssClass' => 'form-error ui-state-error ui-corner-all')),
+    	    'actions-bottom'	=> new tao_helpers_form_xhtml_TagWrapper(array('tag' => 'div', 'cssClass' => 'form-toolbar')),
+    	    'actions-top'		=> new tao_helpers_form_xhtml_TagWrapper(array('tag' => 'div', 'cssClass' => 'form-toolbar'))
+    	));
+    	
     	$submitElt = tao_helpers_form_FormFactory::getElement('import', 'Free');
 		$submitElt->setValue( "<a href='#' class='form-submiter' ><img src='".TAOBASE_WWW."/img/import.png' /> ".__('Import')."</a>");
 
