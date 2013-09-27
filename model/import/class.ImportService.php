@@ -142,6 +142,7 @@ class taoOpenWebItem_model_import_ImportService
 	        if(!$validate || $fileParser->isValid()){
 	    
 	            $itemContent = file_get_contents($folder .'/index.html');
+        		taoItems_models_classes_ItemsService::singleton()->setItemContent($item, $itemContent);
 	            $itemPath = taoItems_models_classes_ItemsService::singleton()->getItemFolder($item, $language);
 	            if(!tao_helpers_File::move($folder, $itemPath)){
 	                common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
