@@ -93,7 +93,7 @@ class taoOpenWebItem_model_import_OwiImportForm
 		$this->form->addElement($fileElt);
 		
 		$disableValidationElt = tao_helpers_form_FormFactory::getElement("disable_validation", 'Checkbox');
-		$disableValidationElt->setDescription("Disable validation");
+		$disableValidationElt->setDescription(__("Disable validation"));
 		$disableValidationElt->setOptions(array("on" => ""));
 		$this->form->addElement($disableValidationElt);
 		
