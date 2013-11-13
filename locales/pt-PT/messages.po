@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO v2.5-alpha\n"
+"PO-Revision-Date: 2013-11-11 12:58-0000\n"
+"Last-Translator: Paulo Amorim <paulo@amorims.com>\n"
+"MIME-Version: 1.0\n"
+"Language: en-US\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+msgid "Enables you to export an Open Web Item."
+msgstr "Permite a exportação de web item aberto"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Export Options"
+msgstr "Opções de exportação"
+
+msgid "File name"
+msgstr "Nome do ficheiro"
+
+msgid "Items"
+msgstr "Items"
+
+msgid "Open Web Item"
+msgstr "Abrir web item"
