@@ -49,6 +49,10 @@ return array(
 		)
 	),
     'managementRole' => 'http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole',
+    'acl' => array(
+        array('grant', 'http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole', array('ext'=>'taoOpenWebItem')),
+        array('grant', 'http://www.tao.lu/Ontologies/TAOItem.rdf#ItemsManagerRole', array('ext'=>'taoOpenWebItem', 'mod' => 'Authoring'))
+    ),
 	'constants' => array(
 		# actions directory
 		"DIR_ACTIONS"			=> $extpath."actions".DIRECTORY_SEPARATOR,
