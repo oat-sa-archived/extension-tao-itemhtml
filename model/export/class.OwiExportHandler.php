@@ -20,12 +20,12 @@
  */
 
 /**
- * Short description of class taoQTI_models_classes_ItemModel
+ * Exporter of taoOpenWebItem
  *
  * @access public
  * @author Joel Bout, <joel@taotesting.com>
- * @package taoQTI
- * @subpackage models_classes_Export
+ * @package taoOpenWebItem
+ * @subpackage models_classes_export
  */
 class taoOpenWebItem_model_export_OwiExportHandler implements tao_models_classes_export_ExportHandler
 {
@@ -89,6 +89,4 @@ class taoOpenWebItem_model_export_OwiExportHandler implements tao_models_classes
 		return $file;
     }
 
-} /* end of class taoQTI_models_classes_ItemModel */
-
-?>
+}

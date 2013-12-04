@@ -98,7 +98,6 @@ class taoOpenWebItem_model_OwiItemModel
      * Add script elements to OWI items if there are some missing APIs.
      * Missing APIs could be 
      * - taoApi
-     * - taoMatching
      * - wfApi (only if the wfEngine extension is installed)
      * 
      * @author Jerome Bogaerts, <jerome@taotesting.com>
@@ -174,14 +173,6 @@ class taoOpenWebItem_model_OwiItemModel
     		$apis['wfApi'] = array(
     			'src'	=> $wfEngineBaseWww . 'js/wfApi/wfApi.min.js',
     			'path'	=> $wfEngineWwwPath . 'js' . DIRECTORY_SEPARATOR . 'wfApi' . DIRECTORY_SEPARATOR . 'wfApi.min.js'
-    		);
-    	}
-    	
-    	if (($taoQtiExt = $extManager->getExtensionById('taoQTI')) != null) {
-    		$taoQtiWww = $taoQtiExt->getConstant('BASE_WWW');
-    		$apis['taoMatching'] 	= array(
-    			'src'	=> $taoQtiWww . 'js/responseProcessing/taoMatching.min.js',
-    			'path'	=> $taoQtiWww . 'js' . DIRECTORY_SEPARATOR . 'responseProcessing' . DIRECTORY_SEPARATOR . 'taoMatching.min.js'
     		);
     	}
     	

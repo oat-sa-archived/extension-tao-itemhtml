@@ -20,12 +20,12 @@
  */
 
 /**
- * Short description of class taoQTI_models_classes_ItemModel
+ * Short description of class taoOpenWebItem_models_classes_ItemModel
  *
  * @access public
  * @author Joel Bout, <joel@taotesting.com>
- * @package tao
- * @subpackage models_classes_Export
+ * @package taoOpenWebItem
+ * @subpackage models_classes_import
  */
 class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes_import_ImportHandler
 {
