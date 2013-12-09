@@ -20,7 +20,7 @@
  */
 ?>
 <?php
-require_once dirname(__FILE__) . '/../../tao/test/TaoTestRunner.php';
+require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 /**
@@ -29,13 +29,13 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  * @package taoItems
  * @subpackage test
  */
-class importExportTestCase extends UnitTestCase {
+class ImportExportTest extends TaoPhpUnitTestRunner {
 	
 	/**
 	 * tests initialization
 	 */
 	public function setUp(){		
-		TaoTestRunner::initTest();
+		TaoPhpUnitTestRunner::initTest();
 	}
 	
 	public function testImportOwi() {
@@ -50,7 +50,7 @@ class importExportTestCase extends UnitTestCase {
 		$this->assertTrue($report->containsError());
 		$errors = $report->getErrors();
 		$this->assertTrue(is_array($errors));
-		$this->assertEqual(count($errors), 2);
+		$this->assertEquals (count($errors), 2);
 		foreach ($errors as $error) {
     		$this->assertIsA($error, 'common_report_ErrorElement');
 		}
@@ -59,7 +59,7 @@ class importExportTestCase extends UnitTestCase {
 		$this->assertTrue($report->containsSuccess());
 		$successes = $report->getSuccesses();
 		$this->assertTrue(is_array($successes));
-		$this->assertEqual(count($successes), 1);
+		$this->assertEquals (count($successes), 1);
 		$success = reset($successes);
 		$this->assertIsA($success, 'common_report_SuccessElement');
 		$owiItem = $success->getData();

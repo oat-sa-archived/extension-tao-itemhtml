@@ -20,7 +20,7 @@
  */
 ?>
 <?php
-require_once dirname(__FILE__) . '/../../tao/test/TaoTestRunner.php';
+require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 /**
@@ -29,13 +29,13 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  * @package taoItems
  * @subpackage test
  */
-class setContentTestCase extends UnitTestCase {
+class setContentTestCase extends TaoPhpUnitTestRunner {
 
 	/**
 	 * tests initialization
 	 */
 	public function setUp(){		
-		TaoTestRunner::initTest();
+		TaoPhpUnitTestRunner::initTest();
 	}
 	
 	public function testItemContent(){
@@ -46,7 +46,7 @@ class setContentTestCase extends UnitTestCase {
 		$itemClass = $itemsService->getRootClass();
 		$item = $itemsService->createInstance($itemClass, 'test content');
 		$this->assertIsA($item, 'core_kernel_classes_Resource');
-		$this->assertEqual('test content', $item->getLabel());
+		$this->assertEquals('test content', $item->getLabel());
 		
 		$item->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
 		
@@ -54,10 +54,10 @@ class setContentTestCase extends UnitTestCase {
 		
 		//must use setItemContent and getItemContent
 		$this->assertTrue($itemsService->setItemContent($item, 'test 2'));
-		$this->assertEqual('test 2', $itemsService->getItemContent($item));
+		$this->assertEquals('test 2', $itemsService->getItemContent($item));
 		
 		$this->assertTrue($itemsService->setItemContent($item, 'test FR', 'FR'));
-		$this->assertEqual('test FR', $itemsService->getItemContent($item, 'FR'));
+		$this->assertEquals('test FR', $itemsService->getItemContent($item, 'FR'));
 		
 		$this->assertTrue($itemsService->deleteItem($item));
 	}
