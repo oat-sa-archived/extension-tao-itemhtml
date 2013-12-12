@@ -37,6 +37,7 @@ class taoOpenWebItem_model_OwiItemModel
      * can be instanciated
      */
     public function __construct() {
+        common_ext_ExtensionsManager::singleton()->getExtensionById('taoOpenWebItem');
     }
 
     /**
@@ -190,8 +191,8 @@ class taoOpenWebItem_model_OwiItemModel
 			new taoOpenWebItem_model_import_OwiImportHandler()
 		);
 	}
-	
-	public function getCompiler(core_kernel_classes_Resource $item) {
-	    return new taoItems_models_classes_ItemCompiler($item);
+
+	public function getCompilerClass() {
+	    return 'taoItems_models_classes_ItemCompiler';
 	}
 }
