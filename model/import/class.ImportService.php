@@ -65,7 +65,7 @@ class taoOpenWebItem_model_import_ImportService
     		}
     				
     		//load and validate the manifest
-    		$fileParser = new tao_models_classes_Parser($folder .'/index.html', array('extension' => 'html'));
+    		$fileParser = new tao_models_classes_Parser($folder .'index.html', array('extension' => 'html'));
     		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
     		$fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
     		
@@ -81,7 +81,7 @@ class taoOpenWebItem_model_import_ImportService
         		//set the XHTML type
         		$rdfItem->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
         		
-        		$itemContent = file_get_contents($folder .'/index.html');
+        		$itemContent = file_get_contents($folder .'index.html');
         		$itemService->setItemContent($rdfItem, $itemContent, null, 'HOLD_COMMIT');
         
         		$itemPath = $itemService->getItemFolder($rdfItem);
@@ -135,13 +135,13 @@ class taoOpenWebItem_model_import_ImportService
 	        }
 	    
 	        //load and validate the manifest
-	        $fileParser = new tao_models_classes_Parser($folder .'/index.html', array('extension' => 'html'));
+	        $fileParser = new tao_models_classes_Parser($folder .'index.html', array('extension' => 'html'));
 	        $taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
 	        $fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
 	    
 	        if(!$validate || $fileParser->isValid()){
 	    
-	            $itemContent = file_get_contents($folder .'/index.html');
+	            $itemContent = file_get_contents($folder .'index.html');
         		taoItems_models_classes_ItemsService::singleton()->setItemContent($item, $itemContent);
 	            $itemPath = taoItems_models_classes_ItemsService::singleton()->getItemFolder($item, $language);
 	            if(!tao_helpers_File::move($folder, $itemPath)){
