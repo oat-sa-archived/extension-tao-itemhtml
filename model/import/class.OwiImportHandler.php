@@ -57,7 +57,7 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
         //import for CSV
         if(isset($fileInfo)){
 			
-			set_time_limit(200);	//the zip extraction is a long process that can exced the 30s timeout
+			helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
 			
 			//get the services instances we will need
 			$itemService	= taoItems_models_classes_ItemsService::singleton();
@@ -82,7 +82,7 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
 			        $report->add($e);
 			    }
 			}
-			
+			helpers_TimeOutHelper::reset();
 			tao_helpers_File::remove($uploadedFile);
 			
 		} else {
