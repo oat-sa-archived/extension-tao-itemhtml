@@ -74,8 +74,8 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
 			try {
 				$report = $importService->importXhtmlFile($uploadedFile, $class, $validate);
 			} catch (taoItems_models_classes_Import_ExtractException $e) {
-			    $error = new common_report_ErrorElement( __('unable to extract archive content, please check your tmp dir'));
-			    $report = common_report_Report::createFailure( __('An error occured during the import'), $error);
+			    $report = common_report_Report::createFailure( __('An error occured during the import'));
+			    $report->add(new common_report_ErrorElement( __('Unable to extract archive content, please check your tmp dir')));
 			} catch (common_Exception $e) {
 			    $report = common_report_Report::createFailure(__('An error occured during the import'));
 			    if ($e instanceof common_exception_UserReadableException) {

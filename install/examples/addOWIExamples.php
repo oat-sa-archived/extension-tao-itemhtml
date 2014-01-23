@@ -31,7 +31,5 @@ foreach ($files as $file) {
 	$report = $service->importXhtmlFile($file, $itemClass, false);
 	$path_parts = pathinfo($file);
 	$label = $path_parts['filename'];
-	$success = $report->getSuccesses();
-	$item = current($success)->getData();
-	$item->setLabel($label);
+    $report->getData()->setLabel($label);
 }
