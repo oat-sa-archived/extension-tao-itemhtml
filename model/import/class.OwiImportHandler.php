@@ -54,13 +54,13 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
     public function import($class, $form) {
 		
         $fileInfo = $form->getValue('source');
-        //import for CSV
+
         if(isset($fileInfo)){
 			
 			helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
 			
 			//get the services instances we will need
-			$itemService	= taoItems_models_classes_ItemsService::singleton();
+			$itemService = taoItems_models_classes_ItemsService::singleton();
 			
 			$uploadedFile = $fileInfo['uploaded_file'];
 			$uploadedFileBaseName = basename($uploadedFile);
@@ -73,11 +73,10 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
 			$importService = new taoOpenWebItem_model_import_ImportService();
 			try {
 				$report = $importService->importXhtmlFile($uploadedFile, $class, $validate);
-			} catch (taoItems_models_classes_Import_ExtractException $e) {
-			    $report = common_report_Report::createFailure( __('An error occured during the import'));
-			    $report->add(new common_report_ErrorElement( __('Unable to extract archive content, please check your tmp dir')));
-			} catch (common_Exception $e) {
-			    $report = common_report_Report::createFailure(__('An error occured during the import'));
+			}
+			catch (Exception $e) {
+			    $report = common_report_Report::createFailure(__('An unexpected error occured during the OWI Item import.'));
+			    
 			    if ($e instanceof common_exception_UserReadableException) {
 			        $report->add($e);
 			    }
@@ -85,9 +84,11 @@ class taoOpenWebItem_model_import_OwiImportHandler implements tao_models_classes
 			helpers_TimeOutHelper::reset();
 			tao_helpers_File::remove($uploadedFile);
 			
-		} else {
+		} 
+		else {
 		    throw new common_exception_Error('No file provided as parameter \'source\' for OWI import');
 		}
+		
 		return $report;
     }
 

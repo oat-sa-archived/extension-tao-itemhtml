@@ -100,10 +100,11 @@ class taoOpenWebItem_model_import_PackageParser
 				if($zip->locateName("index.html") !== false){
 				    $this->valid = true;
 				} else {
-				    $this->addError(__("An Open Web Item package must contain an index.html file at the root of the archive"));
+				    $this->addError(__("An Open Web Item package must contain an index.html file at the root of the archive."));
 				}
-			} else {
-			    $this->addError($zip->getStatusString());
+			} 
+			else {
+			    $this->addError(__("The ZIP archive containing the Open Web Item could not be open."));
 			}
         }
     	$returnValue = $this->valid;

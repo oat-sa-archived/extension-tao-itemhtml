@@ -43,12 +43,11 @@ class taoOpenWebItem_model_import_ImportService
 	 */
 	public function importXhtmlFile($xhtmlFile,  core_kernel_classes_Class $itemClass, $validate = true,  core_kernel_versioning_Repository $repository = null)
 	{
-		$returnValue = null;
-
 		//get the services instances we will need
-		$itemService	= taoItems_models_classes_ItemsService::singleton();
+		$itemService = taoItems_models_classes_ItemsService::singleton();
+		$report = new common_report_Report(common_report_Report::TYPE_SUCCESS, '');
 	
-		if(!$itemService->isItemClass($itemClass)){
+		if (!$itemService->isItemClass($itemClass)) {
 			throw new common_exception_Error('provided non item class for '.__FUNCTION__);
 		}
 
@@ -56,11 +55,11 @@ class taoOpenWebItem_model_import_ImportService
 		$packageParser = new taoOpenWebItem_model_import_PackageParser($xhtmlFile);
 		$packageParser->validate();
 
-		if($packageParser->isValid()){
+		if ($packageParser->isValid()) {
 		
     		//extract the package
     		$folder = $packageParser->extract();
-    		if(!is_dir($folder)){
+    		if (!is_dir($folder)) {
     			throw new taoItems_models_classes_Import_ExtractException();
     		}
     				
@@ -69,7 +68,7 @@ class taoOpenWebItem_model_import_ImportService
     		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
     		$fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
     		
-    		if(!$validate || $fileParser->isValid()){
+    		if(!$validate || $fileParser->isValid()) {
     				
         		//create a new item in the model
         		$rdfItem = $itemService->createInstance($itemClass);
@@ -85,28 +84,50 @@ class taoOpenWebItem_model_import_ImportService
         		$itemService->setItemContent($rdfItem, $itemContent, null, 'HOLD_COMMIT');
         
         		$itemPath = $itemService->getItemFolder($rdfItem);
-        		if(!tao_helpers_File::move($folder, $itemPath)){
+        		if (!tao_helpers_File::move($folder, $itemPath)) {
         			common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
         			// clean up
         			$itemService->delete($rdfItem);
         			helpers_File::remove($folder);
         			throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
         		}
-        		$returnValue = common_report_Report::createSuccess(__('Item was successfully imported'), $rdfItem);
-    		} else {
+        		
+        		$report->setMessage(__('The OWI Item was successfully imported.'));
+        		$report->setData($rdfItem);
+        		
+    		} 
+    		else {
     		    helpers_File::remove($folder);
-    		    $returnValue = $fileParser->getReport();
-			    $returnValue->setTitle(__('Validation of the imported file has failed'));
+    		    if ($fileParser->getReport()->hasChildren() === true) {
+    		        foreach ($fileParser->getReport() as $r) {
+    		            $report->add($r);
+    		        }
+    		    }
+    		    else {
+    		        $report->add($fileParser->getReport());
+    		    }
     		}
-		} else {
-			$returnValue = $packageParser->getReport();
-			$returnValue->setTitle(__('Validation of the imported package has failed'));
+		} 
+		else {
+		    if ($packageParser->getReport()->hasChildren() === true) {
+    		        foreach ($packageParser->getReport() as $r) {
+    		            $report->add($r);
+    		        }
+    		    }
+    		    else {
+    		        $report->add($packageParser->getReport());
+    		    }
 		}	
 		
 		// $folder has been moved, no need to delete it here
 		
-		return $returnValue;
-
+		if ($report->containsError() === true) {
+		    $report->setMessage("The OWI Item could not be imported.");
+		    $report->setType(common_report_Report::TYPE_ERROR);
+		    $report->setData(null);
+		}
+		
+		return $report;
 	}
 	
 	/**
