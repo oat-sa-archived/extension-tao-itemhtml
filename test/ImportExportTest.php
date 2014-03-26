@@ -18,6 +18,9 @@
  *               2009-2012 (update and modification) Public Research Centre Henri Tudor (under the project TAO-SUSTAIN & TAO-DEV);
  * 
  */
+
+use oat\taoOpenWebItem\model\import\ImportService;
+
 ?>
 <?php
 require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
@@ -39,7 +42,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner {
 	}
 	
 	public function testImportOwi() {
-		$importService = new taoOpenWebItem_model_import_ImportService();
+		$importService = new ImportService();
 		$itemClass = new core_kernel_classes_Class(TAO_ITEM_CLASS);
 		
 		$owiFolder = dirname(__FILE__).DIRECTORY_SEPARATOR.'samples'.DIRECTORY_SEPARATOR;

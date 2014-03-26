@@ -49,15 +49,20 @@ return array(
 				dirname(__FILE__).'/install/examples/addOWIExamples.php'
 		)
 	),
+    'autoload' => array (
+        'psr-4' => array(
+            'oat\\taoOpenWebItem\\' => dirname(__FILE__).DIRECTORY_SEPARATOR
+        )
+    ),
+    'routes' => array(
+        '/taoOpenWebItem' => 'oat\\taoOpenWebItem\\controller'
+    ),
     'managementRole' => 'http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole',
     'acl' => array(
         array('grant', 'http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole', array('ext'=>'taoOpenWebItem')),
         array('grant', 'http://www.tao.lu/Ontologies/TAOItem.rdf#ItemsManagerRole', array('ext'=>'taoOpenWebItem', 'mod' => 'Authoring'))
     ),
 	'constants' => array(
-		# actions directory
-		"DIR_ACTIONS"			=> $extpath."actions".DIRECTORY_SEPARATOR,
-	
 		# views directory
 		"DIR_VIEWS"				=> $extpath."views".DIRECTORY_SEPARATOR,
 	
@@ -76,18 +81,6 @@ return array(
 		#BASE WWW the web resources path
 		'BASE_WWW'				=> ROOT_URL	.'taoOpenWebItem/views/',
 	
-		#BASE DATA the path where items are stored
-		'BASE_DATA'				=> $extpath.'data'.DIRECTORY_SEPARATOR,
-	
-		#BASE PREVIEW the path where items are compiled for preview
-		'BASE_PREVIEW'			=> $extpath.'views'.DIRECTORY_SEPARATOR.'runtime'.DIRECTORY_SEPARATOR,
-
-		#BASE PREVIEW URL the url pointing at where items can be previewed
-		'BASE_PREVIEW_URL'		=> ROOT_URL.'taoItems/views/runtime/',
-	 
-		#WWW PATH the path where view medias (templates, img) are stored.
-		'WWW_PATH'				=> $extpath.'views'.DIRECTORY_SEPARATOR,	
-		
 	 	#TAO extension Paths
 		'TAOBASE_WWW'			=> ROOT_URL	.'tao/views/',
 		'TAOVIEW_PATH'			=> $taopath	.'views'.DIRECTORY_SEPARATOR,

@@ -4,5 +4,6 @@ RewriteEngine On
 #usual behavior for resources calls
 RewriteCond %{REQUEST_URI} !/test/  [NC]
 RewriteCond %{REQUEST_URI} !/locales/  [NC]
+RewriteCond %{REQUEST_URI} !/views/  [NC]
 #url resolving  
 RewriteRule ^(.*)$ index.php [L]

@@ -18,6 +18,9 @@
 *
 *
 */
+
+use oat\taoOpenWebItem\model\import\ImportService;
+
 ?>
 <?php
 $itemClass	= taoItems_models_classes_ItemsService::singleton()->getRootClass();
@@ -25,7 +28,7 @@ $files		= array(	dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Googlemaps.zip',
 					 	dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Mammals.zip',
 						dirname(__FILE__) . DIRECTORY_SEPARATOR . 'MammalsRTL.zip');
 
-$service = new taoOpenWebItem_model_import_ImportService();
+$service = new ImportService();
 
 foreach ($files as $file) {
 	$report = $service->importXhtmlFile($file, $itemClass, false);

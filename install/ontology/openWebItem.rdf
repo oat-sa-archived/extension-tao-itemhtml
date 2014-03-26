@@ -17,7 +17,7 @@
     <item:ItemModelStatus rdf:resource="http://www.tao.lu/Ontologies/TAOItem.rdf#StatusStable"/>
     <item:ModelTarget rdf:resource="http://www.tao.lu/Ontologies/TAOItem.rdf#OnlineTarget"/>
     <item:ItemAuthoring xml:lang="en-US"><![CDATA[taoOpenWebItem/Authoring/index]]></item:ItemAuthoring>    
-    <item:ModelService><![CDATA[taoOpenWebItem_model_OwiItemModel]]></item:ModelService>
+    <item:ModelService><![CDATA[oat\taoOpenWebItem\model\OwiItemModel]]></item:ModelService>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole">
   	<rdf:type rdf:resource="http://www.tao.lu/Ontologies/TAO.rdf#ManagementRole"/>

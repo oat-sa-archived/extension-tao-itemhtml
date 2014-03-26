@@ -18,6 +18,9 @@
  *
  */
 
+
+use oat\taoOpenWebItem\model\import\ImportService;
+
 require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
@@ -37,7 +40,7 @@ class CompilationTest extends TaoPhpUnitTestRunner {
 	}
 	
 	public function testCompileComplete() {
-		$importService = new taoOpenWebItem_model_import_ImportService();
+		$importService = new ImportService();
 		$itemClass = new core_kernel_classes_Class(TAO_ITEM_CLASS);
 		
 		$owiFolder = dirname(__FILE__).DIRECTORY_SEPARATOR.'samples'.DIRECTORY_SEPARATOR;
@@ -62,7 +65,7 @@ class CompilationTest extends TaoPhpUnitTestRunner {
 	// impossible to determin local missing results for now
 	/*
 	public function testCompileMissingLocal() {
-	    $importService = new taoOpenWebItem_model_import_ImportService();
+	    $importService = new ImportService();
 	    $itemClass = new core_kernel_classes_Class(TAO_ITEM_CLASS);
 	
 	    $owiFolder = dirname(__FILE__).DIRECTORY_SEPARATOR.'samples'.DIRECTORY_SEPARATOR;
@@ -84,7 +87,7 @@ class CompilationTest extends TaoPhpUnitTestRunner {
 	*/
 	
 	public function testCompileMissingRemote() {
-	    $importService = new taoOpenWebItem_model_import_ImportService();
+	    $importService = new ImportService();
 	    $itemClass = new core_kernel_classes_Class(TAO_ITEM_CLASS);
 	
 	    $owiFolder = dirname(__FILE__).DIRECTORY_SEPARATOR.'samples'.DIRECTORY_SEPARATOR;
