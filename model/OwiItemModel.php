@@ -40,7 +40,7 @@ use \common_Logger;
  * @access public
  * @author Joel Bout, <joel@taotesting.com>
  * @package taoItems
- * @subpackage models_classes_XHTML
+ 
  */
 class OwiItemModel
 	implements  taoItems_models_classes_itemModel

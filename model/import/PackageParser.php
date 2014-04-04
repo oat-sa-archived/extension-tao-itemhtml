@@ -36,7 +36,7 @@ use \ZipArchive;
  * @access public
  * @author Jerome Bogaerts, <jerome.bogaerts@tudor.lu>
  * @package taoItems
- * @subpackage models_classes_XHTML
+ 
  */
 class PackageParser
     extends tao_models_classes_Parser

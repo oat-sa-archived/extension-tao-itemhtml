@@ -36,7 +36,7 @@ use \tao_helpers_form_FormFactory;
  * 
  * @author Joel Bout
  * @package taoLti
- * @subpackage actions
+ 
  * @license GPLv2  http://www.opensource.org/licenses/gpl-2.0.php
  *
  */
