@@ -51,21 +51,17 @@ class ImportExportTest extends TaoPhpUnitTestRunner {
 		$report = $importService->importXhtmlFile($owiFolder.'badItem.zip', $itemClass, true);
 		$this->assertFalse($report->containsSuccess());
 		$this->assertTrue($report->containsError());
-		$errors = $report->getErrors();
-		$this->assertTrue(is_array($errors));
-		$this->assertEquals (count($errors), 2);
-		foreach ($errors as $error) {
-    		$this->assertIsA($error, 'common_report_ErrorElement');
-		}
 		
-		$report = $importService->importXhtmlFile($owiFolder.'badItem.zip', $itemClass, false);
-		$this->assertTrue($report->containsSuccess());
-		$successes = $report->getSuccesses();
-		$this->assertTrue(is_array($successes));
-		$this->assertEquals (count($successes), 1);
-		$success = reset($successes);
-		$this->assertIsA($success, 'common_report_SuccessElement');
-		$owiItem = $success->getData();
+		$count = 0;
+		foreach ($report as $element) {
+		    $this->assertEquals(common_report_Report::TYPE_ERROR, $element->getType());
+		    $count++;
+		}
+		$this->assertEquals (2, $count);
+		
+		$report = $importService->importXhtmlFile($owiFolder.'complete.zip', $itemClass, false);
+		$this->assertEquals(common_report_Report::TYPE_SUCCESS, $report->getType());
+		$owiItem = $report->getData();
 		
 		$this->assertIsA($owiItem, 'core_kernel_classes_Resource');
 		
@@ -75,7 +71,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner {
 		
 		$folder = $itemService->getItemFolder($owiItem);
 		$this->assertTrue(file_exists($folder.'index.html'));
-		$this->assertTrue(file_exists($folder.'media'.DIRECTORY_SEPARATOR.'simple.png'));
+		$this->assertTrue(file_exists($folder.'logo.gif'));
 		
 		$this->assertTrue($itemService->deleteItem($owiItem));
 	}
