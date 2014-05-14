@@ -60,7 +60,7 @@ class PackageParser
     {
         $returnValue = (bool) false;
 
-        // section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:000000000000286A begin
+        
                 
         $forced = $this->valid;
         $this->valid = true;
@@ -116,7 +116,7 @@ class PackageParser
         }
     	$returnValue = $this->valid;
         
-        // section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:000000000000286A end
+        
 
         return (bool) $returnValue;
     }
@@ -132,7 +132,7 @@ class PackageParser
     {
         $returnValue = (string) '';
 
-        // section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:000000000000286C begin
+        
         
     	if(!is_file($this->source)){	//ultimate verification
         	throw new Exception("Wrong source mode");
@@ -147,7 +147,7 @@ class PackageParser
 		    $zip->close();
 		}
         
-        // section 127-0-1-1-2d0bb0b3:12c2c41fb7c:-8000:000000000000286C end
+        
 
         return (string) $returnValue;
     }
