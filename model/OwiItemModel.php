@@ -24,8 +24,8 @@ namespace oat\taoOpenWebItem\model;
 use oat\taoOpenWebItem\model\export\OwiExportHandler;
 use oat\taoOpenWebItem\model\import\OwiImportHandler;
 use \taoItems_models_classes_itemModel;
-use \taoItems_models_classes_ExportableItemModel;
-use \taoItems_models_classes_ImportableItemModel;
+use \tao_models_classes_export_ExportProvider;
+use \tao_models_classes_import_ImportProvider;
 use \common_ext_ExtensionsManager;
 use \core_kernel_classes_Resource;
 use \taoItems_models_classes_ItemsService;
@@ -44,8 +44,8 @@ use \common_Logger;
  */
 class OwiItemModel
 	implements  taoItems_models_classes_itemModel
-		,taoItems_models_classes_ExportableItemModel
-		,taoItems_models_classes_ImportableItemModel
+		,tao_models_classes_export_ExportProvider
+		,tao_models_classes_import_ImportProvider
 {
     /**
      * default constructor to ensure the implementation
