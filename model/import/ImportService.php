@@ -103,7 +103,7 @@ class ImportService
         		if (!tao_helpers_File::move($folder, $itemPath)) {
         			common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
         			// clean up
-        			$itemService->delete($rdfItem);
+        			$itemService->deleteItem($rdfItem);
         			helpers_File::remove($folder);
         			throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
         		}

@@ -62,6 +62,8 @@ class Authoring extends tao_actions_CommonModule {
 	    }
 	    $item = new core_kernel_classes_Resource(tao_helpers_Uri::decode($this->getRequestParameter('instance')));
 	    
+        $this->setData('hasContent', \taoItems_models_classes_ItemsService::singleton()->hasItemContent($item));
+	    
 	    $formContainer = new OwiImportForm();
 		$myForm = $formContainer->getForm();
 		
@@ -78,12 +80,10 @@ class Authoring extends tao_actions_CommonModule {
 		        
 		        $importer = new ImportService();
 		        $report = $importer->importContent($uploadedFile, $item, '', $validate);
-		        if ($report->containsSuccess()) {
+		        if ($report->getType() == \common_report_Report::TYPE_SUCCESS) {
 		            $this->setData('message', __('Content saved'));
-		        }
-		        if ($report->containsError()) {
-		            $this->setData('importErrorTitle', $report->getTitle());
-		            $this->setData('importErrors', $report->getErrors());
+		        } else {
+		            $this->setData('report', $report);
 		        }
 		    }
 		}
