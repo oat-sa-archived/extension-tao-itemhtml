@@ -80,13 +80,9 @@ class OwiImportForm
     public function initElements()
     {
 
-    	$descElt = tao_helpers_form_FormFactory::getElement('xhtml_desc', 'Label');
-		$descElt->setValue(__('An Open Web Item package is a Zip archive containing an index.html file with the XHTML 1.0 Transitional Doctype and resources (images, scripts, css, video, etc.).'));
-		$this->form->addElement($descElt);
-    	
     	//create file upload form box
 		$fileElt = tao_helpers_form_FormFactory::getElement('source', 'AsyncFile');
-		$fileElt->setDescription(__("Add the source file"));
+		$fileElt->setDescription(__("Add a zip containing an OWI"));
     	if(isset($_POST['import_sent_xhtml'])){
 			$fileElt->addValidator(tao_helpers_form_FormFactory::getValidator('NotEmpty'));
 		}
@@ -105,7 +101,7 @@ class OwiImportForm
 		$disableValidationElt->setOptions(array("on" => ""));
 		$this->form->addElement($disableValidationElt);
 		
-		$this->form->createGroup('file', __('Upload an Open Web Item Package File'), array('xhtml_desc', 'source', 'disable_validation'));
+		$this->form->createGroup('file', __('Import an Open Web Item'), array('xhtml_desc', 'source', 'disable_validation'));
 		
 		$xhtmlSentElt = tao_helpers_form_FormFactory::getElement('import_sent_xhtml', 'Hidden');
 		$xhtmlSentElt->setValue(1);
