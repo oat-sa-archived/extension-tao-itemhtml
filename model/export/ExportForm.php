@@ -116,10 +116,6 @@ class ExportForm
     		}
     	}
 
-		$descElt = tao_helpers_form_FormFactory::getElement('xml_desc', 'Label');
-		$descElt->setValue(__("Enables you to export an Open Web Item."));
-		$this->form->addElement($descElt);
-
 		$nameElt = tao_helpers_form_FormFactory::getElement('filename', 'Textbox');
 		$nameElt->setDescription(__('File name'));
 		$nameElt->setValue($fileName);
@@ -136,7 +132,7 @@ class ExportForm
 		$this->form->addElement($instanceElt);
 
 
-    	$this->form->createGroup('options', __('Export Options'), array('xml_desc', 'filename', 'exportInstance'));
+    	$this->form->createGroup('options', __('Export an Open Web Item'), array('xml_desc', 'filename', 'exportInstance'));
     }
 
 } /* end of class taoItems_actions_form_Export */
