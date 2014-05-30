@@ -81,7 +81,7 @@ class ImportService
     				
     		//load and validate the manifest
     		$fileParser = new tao_models_classes_Parser($folder .'index.html', array('extension' => 'html'));
-    		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
+    		$taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getDir();
     		$fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
     		
     		if(!$validate || $fileParser->isValid()) {
@@ -173,7 +173,7 @@ class ImportService
 	    
 	        //load and validate the manifest
 	        $fileParser = new tao_models_classes_Parser($folder .'index.html', array('extension' => 'html'));
-	        $taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getConstant('BASE_PATH');
+	        $taoItemsBasePath = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems')->getDir();
 	        $fileParser->validate($taoItemsBasePath.'/models/classes/data/xhtml/xhtml.xsd');
 	    
 	        if(!$validate || $fileParser->isValid()){
