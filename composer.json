@@ -52,7 +52,7 @@
 	"GPL-2.0"
 	],
     "extra" : {
-    	"tao-extension-name" : "taoOpenWebItems"
+    	"tao-extension-name" : "taoOpenWebItem"
     },
     "minimum-stability" : "dev",
     "require": {
