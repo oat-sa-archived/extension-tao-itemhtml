@@ -52,11 +52,6 @@ return array(
 				dirname(__FILE__).'/install/examples/addOWIExamples.php'
 		)
 	),
-    'autoload' => array (
-        'psr-4' => array(
-            'oat\\taoOpenWebItem\\' => dirname(__FILE__).DIRECTORY_SEPARATOR
-        )
-    ),
     'routes' => array(
         '/taoOpenWebItem' => 'oat\\taoOpenWebItem\\controller'
     ),
