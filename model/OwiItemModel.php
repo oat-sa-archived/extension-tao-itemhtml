@@ -33,6 +33,7 @@ use \DOMDocument;
 use \taoItems_models_classes_ItemModelException;
 use \taoItems_helpers_Xhtml;
 use \common_Logger;
+use oat\tao\helpers\Template;
 
 /**
  * Service dedicated to the management of the XHTML Item Model.
@@ -103,7 +104,7 @@ class OwiItemModel
     	if ($found > 0) {
     		common_Logger::i('found '.$found.' references to deprecated APIs, replacing with legacy API');
 	    	$taoItemsExt = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems');
-	    	$legacyApiSrc = $taoItemsExt->getConstant('BASE_WWW') . 'js/legacyApi/taoLegacyApi.min.js';
+	    	$legacyApiSrc = Template::js('js/legacyApi/taoLegacyApi.min.js');
 	    	taoItems_helpers_Xhtml::addScriptElement($dom, $legacyApiSrc);
     	}
     	return $dom->saveHTML();
