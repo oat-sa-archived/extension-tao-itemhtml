@@ -2,16 +2,14 @@
 use oat\tao\helpers\Template;
 Template::inc('form_context.tpl', 'tao')
 ?>
-<div class="main-container">
-    <div id="form-title" class="ui-widget-header ui-corner-top ui-state-default">
-    	<?=get_data('formTitle')?>
-    </div>
+<div class="main-container" data-tpl="taoOpenWebItem/form.tpl">
+    <h2><?=get_data('formTitle')?></h2>
     <?if(get_data('hasContent')):?>
         <div class="feedback-info">
             <span class="icon-info"></span><?= __('This Open Web Item already has content. Go to Preview to see it or import a replacement below.')?>
         </div>
 	<?endif?>
-    <div id="form-container" class="ui-widget-content ui-corner-bottom">
+    <div class="form-content">
     
     	<?=get_data('myForm')?>
     	<?if(has_data('report')):?>
@@ -20,6 +18,3 @@ Template::inc('form_context.tpl', 'tao')
     	
     </div>
 </div>
-<?php
-Template::inc('footer.tpl', 'tao')
-?>
