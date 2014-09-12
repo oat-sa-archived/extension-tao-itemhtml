@@ -104,7 +104,7 @@ class OwiItemModel
     	if ($found > 0) {
     		common_Logger::i('found '.$found.' references to deprecated APIs, replacing with legacy API');
 	    	$taoItemsExt = common_ext_ExtensionsManager::singleton()->getExtensionById('taoItems');
-	    	$legacyApiSrc = Template::js('js/legacyApi/taoLegacyApi.min.js');
+	    	$legacyApiSrc = Template::js('legacyApi/taoLegacyApi.min.js', 'taoItems');
 	    	taoItems_helpers_Xhtml::addScriptElement($dom, $legacyApiSrc);
     	}
     	return $dom->saveHTML();

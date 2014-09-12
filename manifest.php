@@ -78,8 +78,5 @@ return array(
 	
 		#BASE WWW the web resources path
 		'BASE_WWW'				=> ROOT_URL	.'taoOpenWebItem/views/',
-	
-	 	#TAO extension Paths
-		'TAOBASE_WWW'			=> ROOT_URL	.'tao/views/',
 	)
 );
