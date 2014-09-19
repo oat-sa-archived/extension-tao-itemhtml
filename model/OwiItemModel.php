@@ -84,6 +84,12 @@ class OwiItemModel
         return _url('index', 'ItemPreview', 'taoItems', array('uri' => $item->getUri(), 'lang' => $languageCode));
     }
     
+    /**
+     * @see taoItems_models_classes_itemModel::getAuthoringUrl()
+     */
+    public function getAuthoringUrl( core_kernel_classes_Resource $item) {
+        return _url('index', 'Authoring', 'taoOpenWebItem', array('instance' => $item->getUri()));
+    }
 	
     /**
      * Removes unnescessary API references
