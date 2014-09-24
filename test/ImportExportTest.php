@@ -19,11 +19,8 @@
  * 
  */
 
+use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\import\ImportService;
-
-?>
-<?php
-require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 /**
@@ -77,4 +74,3 @@ class ImportExportTest extends TaoPhpUnitTestRunner {
 	}
 	
 }
-?>
