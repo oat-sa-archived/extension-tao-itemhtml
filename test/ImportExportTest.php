@@ -1,7 +1,5 @@
 <?php
-namespace oat\taoOpenWebItem\test;
-
-/*
+/**
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; under version 2
@@ -21,8 +19,12 @@ namespace oat\taoOpenWebItem\test;
  * 
  */
 
+namespace oat\taoOpenWebItem\test;
+
 use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\import\ImportService;
+
+
 
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
@@ -151,7 +153,10 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $storage = \tao_models_classes_service_FileStorage::singleton();
         $compiler = new \taoItems_models_classes_ItemCompiler($complete, $storage);
         $report = $compiler->compile();
-        $this->assertEquals($report->getType(), \common_report_Report::TYPE_SUCCESS);
+        
+        $this->assertEquals($report->getType(), \common_report_Report::TYPE_SUCCESS, 
+            'this test try to retrieve http://forge.taotesting.com/themes/tao-theme/images/logo.gif check if available');
+        
         $serviceCall = $report->getData();
         $this->assertNotNull($serviceCall);
         $this->assertInstanceOf('\tao_models_classes_service_ServiceCall', $serviceCall);
@@ -160,5 +165,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
         $this->assertTrue($itemService->deleteItem($complete));
     }
+    
+
 
 }
