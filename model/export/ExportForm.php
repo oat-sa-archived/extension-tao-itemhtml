@@ -135,6 +135,4 @@ class ExportForm
     	$this->form->createGroup('options', __('Export an Open Web Item'), array('xml_desc', 'filename', 'exportInstance'));
     }
 
-} /* end of class taoItems_actions_form_Export */
-
-?>
+}

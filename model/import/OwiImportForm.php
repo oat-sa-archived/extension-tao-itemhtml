@@ -108,6 +108,4 @@ class OwiImportForm
 		$this->form->addElement($xhtmlSentElt);
     }
 
-} /* end of class taoItems_actions_form_Export */
-
-?>
+}

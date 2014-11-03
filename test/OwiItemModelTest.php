@@ -30,6 +30,7 @@ class OwiItemModelTest extends TaoPhpUnitTestRunner
      */
     public function setUp()
     {
+        
         TaoPhpUnitTestRunner::initTest();
     }
 
