@@ -1,22 +1,22 @@
 <?php
-/**  
+/**
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; under version 2
  * of the License (non-upgradable).
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- * 
+ *
  * Copyright (c) 2009-2012 (original work) Public Research Centre Henri Tudor (under the project TAO-SUSTAIN & TAO-DEV);
- *               2014 (update and modification) Open Assessment Technologies SA (under the project TAO-PRODUCT); 
- * 
+ *               2014 (update and modification) Open Assessment Technologies SA (under the project TAO-PRODUCT);
+ *
  */
 
 namespace oat\taoOpenWebItem\model;
@@ -33,6 +33,7 @@ use \DOMDocument;
 use \taoItems_models_classes_ItemModelException;
 use \taoItems_helpers_Xhtml;
 use \common_Logger;
+use \common_exception_NotImplemented;
 use oat\tao\helpers\Template;
 
 /**
@@ -41,7 +42,7 @@ use oat\tao\helpers\Template;
  * @access public
  * @author Joel Bout, <joel@taotesting.com>
  * @package taoItems
- 
+
  */
 class OwiItemModel
 	implements  taoItems_models_classes_itemModel
@@ -69,13 +70,13 @@ class OwiItemModel
     {
     	$itemsService = taoItems_models_classes_ItemsService::singleton();
         $xhtml = $itemsService->getItemContent($item, $langCode);
-        
+
         // Check if all needed APIs are referenced.
         $xhtml = $this->replaceDeprecatedApis($xhtml); // throws ItemModelException.
 
         return $xhtml;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see taoItems_models_classes_itemModel::getPreviewUrl()
@@ -83,17 +84,17 @@ class OwiItemModel
     public function getPreviewUrl( core_kernel_classes_Resource $item, $languageCode) {
         return _url('index', 'ItemPreview', 'taoItems', array('uri' => $item->getUri(), 'lang' => $languageCode));
     }
-    
+
     /**
      * @see taoItems_models_classes_itemModel::getAuthoringUrl()
      */
     public function getAuthoringUrl( core_kernel_classes_Resource $item) {
         return _url('index', 'Authoring', 'taoOpenWebItem', array('instance' => $item->getUri()));
     }
-	
+
     /**
      * Removes unnescessary API references
-     * 
+     *
      * @param Resource $item
      */
     protected function replaceDeprecatedApis($xhtml) {
@@ -101,7 +102,7 @@ class OwiItemModel
     	if (!$dom->loadHTML($xhtml)){
     		throw new taoItems_models_classes_ItemModelException("An error occured while loading the XML content of the rendered item.");
     	}
-    	
+
     	$found = 0;
     	$deprecatedApis = array('taoApi', 'wfApi');
     	foreach ($deprecatedApis as $pattern){
@@ -115,13 +116,13 @@ class OwiItemModel
     	}
     	return $dom->saveHTML();
     }
-        
+
 	public function getExportHandlers() {
 		return array(
 			new OwiExportHandler()
 		);
 	}
-	
+
 	public function getImportHandlers() {
 		return array(
 			new OwiImportHandler()
@@ -131,4 +132,8 @@ class OwiItemModel
 	public function getCompilerClass() {
 	    return 'taoItems_models_classes_ItemCompiler';
 	}
+
+    public function getPackerClass() {
+        throw new common_exception_NotImplemented("The packer isn't yet implemented for Open Web Items");
+    }
 }
