@@ -7,11 +7,12 @@ module.exports = function(grunt) {
     var root        = grunt.option('root');
     var libs        = grunt.option('mainlibs');
     var ext         = require(root + '/tao/views/build/tasks/helpers/extensions')(grunt, root);
+    var out         = 'output/taoOpenWebItem';
 
     /**
      * Remove bundled and bundling files
      */
-    clean.taoopenwebitembundle = ['output',  root + '/taoOpenWebItem/views/js/controllers.min.js'];
+    clean.taoopenwebitembundle = [out,  root + '/taoOpenWebItem/views/js/controllers.min.js'];
     
     /**
      * Compile tao files into a bundle 
@@ -19,7 +20,7 @@ module.exports = function(grunt) {
     requirejs.taoopenwebitembundle = {
         options: {
             baseUrl : '../js',
-            dir : 'output',
+            dir : out,
             mainConfigFile : './config/requirejs.build.js',
             paths : { 'taoOpenWebItem' : root + '/taoOpenWebItem/views/js' },
             modules : [{
@@ -35,8 +36,8 @@ module.exports = function(grunt) {
      */
     copy.taoopenwebitembundle = {
         files: [
-            { src: ['output/taoOpenWebItem/controller/routes.js'],  dest: root + '/taoOpenWebItem/views/js/controllers.min.js' },
-            { src: ['output/taoOpenWebItem/controller/routes.js.map'],  dest: root + '/taoOpenWebItem/views/js/controllers.min.js.map' }
+            { src: [out + '/taoOpenWebItem/controller/routes.js'],  dest: root + '/taoOpenWebItem/views/js/controllers.min.js' },
+            { src: [out + '/taoOpenWebItem/controller/routes.js.map'],  dest: root + '/taoOpenWebItem/views/js/controllers.min.js.map' }
         ]
     };
 
