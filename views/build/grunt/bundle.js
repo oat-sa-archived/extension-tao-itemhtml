@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     /**
      * Remove bundled and bundling files
      */
-    clean.taoopenwebitembundle = [out,  root + '/taoOpenWebItem/views/js/controllers.min.js'];
+    clean.taoopenwebitembundle = [out];
     
     /**
      * Compile tao files into a bundle 
