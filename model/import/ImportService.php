@@ -186,7 +186,7 @@ class ImportService
 	                helpers_File::remove($folder);
 	                throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
 	            }
-	            $returnValue = common_report_Report::createSuccess(__('Item was successfully imported'));
+	            $returnValue = common_report_Report::createSuccess(__('%s was successfully replaced', $item->getLabel()), $item);
 	        } else {
 	            helpers_File::remove($folder);
 	            $returnValue = $fileParser->getReport();
