@@ -71,6 +71,12 @@ class Authoring extends tao_actions_CommonModule {
 		$element->setValue($item->getUri());
 		$myForm->addElement($element);
 		
+		// for dataAcl on items
+		$element = tao_helpers_form_FormFactory::getElement('id', 'hidden');
+		$element->setValue($item->getUri());
+		$myForm->addElement($element);
+		
+		
 		if($myForm->isSubmited()){
 		    if($myForm->isValid()){
 		        $validate = count($myForm->getValue('disable_validation')) == 0 ? true : false;
@@ -80,11 +86,7 @@ class Authoring extends tao_actions_CommonModule {
 		        
 		        $importer = new ImportService();
 		        $report = $importer->importContent($uploadedFile, $item, '', $validate);
-		        if ($report->getType() == \common_report_Report::TYPE_SUCCESS) {
-		            $this->setData('message', __('Content saved'));
-		        } else {
-		            $this->setData('report', $report);
-		        }
+		        return $this->returnReport($report);
 		    }
 		}
 		$this->setData('formTitle', __('Import Content'));
