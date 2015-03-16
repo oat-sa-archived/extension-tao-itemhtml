@@ -99,7 +99,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
      */
     public function testWrongClass()
     {
-        $itemClass = new \core_kernel_classes_Class(TAO_GROUP_CLASS);
+        $itemClass = new \core_kernel_classes_Class(GENERIS_RESOURCE);
         $report = $this->importService->importXhtmlFile('dummy', $itemClass, true);
     }
 
