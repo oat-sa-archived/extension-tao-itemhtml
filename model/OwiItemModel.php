@@ -49,6 +49,9 @@ class OwiItemModel
 		,tao_models_classes_export_ExportProvider
 		,tao_models_classes_import_ImportProvider
 {
+    
+    const ITEMMODEL_URI = 'http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML';
+    
     /**
      * default constructor to ensure the implementation
      * can be instanciated

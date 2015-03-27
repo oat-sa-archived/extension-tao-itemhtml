@@ -107,12 +107,12 @@ class ExportForm
 	    		$class = $itemService->getRootClass();
 	    	}
     		if($class instanceof core_kernel_classes_Class){
-					$fileName =  strtolower(tao_helpers_Display::textCleaner($class->getLabel(), '*'));
-					foreach($class->getInstances() as $instance){
-						if($itemService->hasItemModel($instance, array(TAO_ITEM_MODEL_XHTML))){
-							$options[$instance->getUri()] = $instance->getLabel();
-						}
-					}
+                    $fileName =  strtolower(tao_helpers_Display::textCleaner($class->getLabel(), '*'));
+                    foreach($class->getInstances() as $instance){
+                        if($itemService->hasItemModel($instance, array(TAO_ITEM_MODEL_XHTML)) && $itemService->hasItemContent($instance)){
+                            $options[$instance->getUri()] = $instance->getLabel();
+                        }
+                    }
     		}
     	}
 
