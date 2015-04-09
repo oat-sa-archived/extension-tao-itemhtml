@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: TAO 3.0-RC04\n"
-"PO-Revision-Date: 2015-03-06T15:38:09\n"
+"Project-Id-Version: TAO 3.0-RC05\n"
+"PO-Revision-Date: 2015-04-09T09:12:33\n"
 "Last-Translator: TAO Translation Team <translation@tao.lu>\n"
 "MIME-Version: 1.0\n"
 "Language: zh-SG\n"
@@ -20,9 +20,6 @@ msgid "An Open Web Item package must contain an index.html file at the root of t
 msgstr ""
 
 msgid "An unexpected error occured during the OWI Item import."
-msgstr ""
-
-msgid "Content saved"
 msgstr ""
 
 msgid "Disable validation"
@@ -44,9 +41,6 @@ msgid "Import an Open Web Item"
 msgstr ""
 
 msgid "Import Content"
-msgstr ""
-
-msgid "Item was successfully imported"
 msgstr ""
 
 msgid "Items"
