@@ -4,9 +4,9 @@ msgstr ""
 "PO-Revision-Date: 2015-04-30T09:11:50\n"
 "Last-Translator: TAO Translation Team <translation@tao.lu>\n"
 "MIME-Version: 1.0\n"
-"Language: id-ID\n"
+"Language: zh-CN\n"
 "sourceLanguage: en-US\n"
-"targetLanguage: id-ID\n"
+"targetLanguage: zh-CN\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Basepath: ../../\n"
@@ -14,53 +14,53 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 msgid "Add a zip containing an OWI"
-msgstr ""
+msgstr "添加一个持有OWI的ZIP压缩档案"
 
 msgid "An Open Web Item package must contain an index.html file at the root of the archive."
-msgstr ""
+msgstr "一个Open Web题目包的根存档必须要有一个index.html文件。"
 
 msgid "An unexpected error occured during the OWI Item import."
-msgstr ""
+msgstr "在汇入OWI题目时发生了未预料到的错误。"
 
 msgid "Disable validation"
-msgstr ""
+msgstr "禁用验证"
 
 msgid "Export"
-msgstr ""
+msgstr "导出"
 
 msgid "Export an Open Web Item"
-msgstr ""
+msgstr "导出一个Open Web题目"
 
 msgid "File name"
-msgstr ""
+msgstr "文件名"
 
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 msgid "Import an Open Web Item"
-msgstr ""
+msgstr "汇入一个Open Web题目"
 
 msgid "Import Content"
-msgstr ""
+msgstr "导入内容"
 
 msgid "Items"
-msgstr ""
+msgstr "题目"
 
 msgid "Open Web Item"
-msgstr ""
+msgstr "Open Web题目"
 
 msgid "The OWI Item was successfully imported."
-msgstr ""
+msgstr "OWI(Open Web题目)已成功导入。"
 
 msgid "The ZIP archive containing the Open Web Item could not be open."
-msgstr ""
+msgstr "包含OWI(Open Web题目)的ZIP压缩档无法开启。"
 
 msgid "This Open Web Item already has content. Go to Preview to see it or import a replacement below."
-msgstr ""
+msgstr "这个(OWI)Open Web题目已有内容。 请看预览或从以下导入替代题目。"
 
 msgid "Validation of the imported file has failed"
-msgstr ""
+msgstr "导入的文件验证失败"
 
 msgid "Validation of the imported package has failed"
-msgstr ""
+msgstr "导入的档案包验证失败"
 
