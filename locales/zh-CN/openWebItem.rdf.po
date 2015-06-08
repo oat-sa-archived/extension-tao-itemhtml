@@ -4,16 +4,16 @@ msgstr ""
 "PO-Revision-Date: 2015-06-08T14:44:23\n"
 "Last-Translator: TAO Translation Team <translation@tao.lu>\n"
 "MIME-Version: 1.0\n"
-"Language: pt-PT\n"
+"Language: zh-CN\n"
 "sourceLanguage: en-US\n"
-"targetLanguage: pt-PT\n"
+"targetLanguage: zh-CN\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML
 msgctxt "http://www.w3.org/2000/01/rdf-schema#label"
 msgid "Open Web Item"
-msgstr "Open Web Item"
+msgstr ""
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML
 msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
@@ -23,20 +23,10 @@ msgstr ""
 # http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole
 msgctxt "http://www.w3.org/2000/01/rdf-schema#label"
 msgid "Open Web Items Manager"
-msgstr "Open Web Items Manager"
+msgstr ""
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole
 msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
 msgid "Open Web Items Manager Role"
 msgstr ""
-
-# http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML
-msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
-msgid "Open Web Item"
-msgstr "Open Web Items model"
-
-# http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole
-msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
-msgid "Open Web Items Manager"
-msgstr "Open Web Items Manager Role"
 
