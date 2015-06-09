@@ -101,7 +101,7 @@ class OwiImportForm
 		$disableValidationElt->setOptions(array("on" => ""));
 		$this->form->addElement($disableValidationElt);
 		
-		$this->form->createGroup('file', __('Import an Open Web Item'), array('xhtml_desc', 'source', 'disable_validation'));
+		$this->form->createGroup('file', __('Import an Open Web Item'), array('source', 'disable_validation'));
 		
 		$xhtmlSentElt = tao_helpers_form_FormFactory::getElement('import_sent_xhtml', 'Hidden');
 		$xhtmlSentElt->setValue(1);
