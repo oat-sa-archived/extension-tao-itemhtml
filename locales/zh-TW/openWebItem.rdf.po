@@ -13,20 +13,20 @@ msgstr ""
 # http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML
 msgctxt "http://www.w3.org/2000/01/rdf-schema#label"
 msgid "Open Web Item"
-msgstr ""
+msgstr "Open Web 題目"
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#XHTML
 msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
 msgid "Open Web Items model"
-msgstr ""
+msgstr "Open Web 題目樣式"
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole
 msgctxt "http://www.w3.org/2000/01/rdf-schema#label"
 msgid "Open Web Items Manager"
-msgstr ""
+msgstr "Open Web 題目主管"
 
 # http://www.tao.lu/Ontologies/TAOItem.rdf#OWIManagerRole
 msgctxt "http://www.w3.org/2000/01/rdf-schema#comment"
 msgid "Open Web Items Manager Role"
-msgstr ""
+msgstr "Open Web 題目主管角色"
 
