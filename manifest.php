@@ -34,7 +34,7 @@ return array(
 	'label' => 'Open-web item model',
     'description' => 'Open Web Item model allows users to create items with rich HTML content',
     'license' => 'GPL-2.0',
-    'version' => '2.6',
+    'version' => '2.6.1',
 	'author' => 'Open Assessment Technologies',
 	'requires' => array(
 	   'taoItems' => '>=2.6'
@@ -47,6 +47,8 @@ return array(
 			dirname(__FILE__). '/install/ontology/openWebItem.rdf'
 		)
 	),
+	'update' => 'oat\\taoOpenWebItem\\scripts\\update\\Updater',
+
 	'local'	=> array(
 		'php'	=> array(
 				dirname(__FILE__).'/install/examples/addOWIExamples.php'
