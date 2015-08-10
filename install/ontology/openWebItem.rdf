@@ -15,7 +15,6 @@
     <rdfs:isDefinedBy xml:lang="en-US"/>
     <item:DataFileName><![CDATA[index.html]]></item:DataFileName>
     <item:ItemModelStatus rdf:resource="http://www.tao.lu/Ontologies/TAOItem.rdf#StatusStable"/>
-    <item:ModelTarget rdf:resource="http://www.tao.lu/Ontologies/TAOItem.rdf#OnlineTarget"/>
     <item:ItemAuthoring xml:lang="en-US"><![CDATA[taoOpenWebItem/Authoring/index]]></item:ItemAuthoring>    
     <item:ModelService><![CDATA[oat\taoOpenWebItem\model\OwiItemModel]]></item:ModelService>
   </rdf:Description>
