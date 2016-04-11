@@ -34,7 +34,7 @@ return array(
 	'label' => 'Open-web item model',
     'description' => 'Open Web Item model allows users to create items with rich HTML content',
     'license' => 'GPL-2.0',
-    'version' => '2.7.0',
+    'version' => '2.7.1',
 	'author' => 'Open Assessment Technologies',
 	'requires' => array(
 	   'taoItems' => '>=2.6'
