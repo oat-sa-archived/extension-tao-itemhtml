@@ -97,18 +97,17 @@ class ImportService
         		//set the XHTML type
         		$rdfItem->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
         		
-        		$itemContent = file_get_contents($folder .'index.html');
         		$dir = $itemService->getItemDirectory($rdfItem);
     		    foreach (
     		        $iterator = new \RecursiveIteratorIterator(
     		            new \RecursiveDirectoryIterator($folder, \RecursiveDirectoryIterator::SKIP_DOTS),
     		            \RecursiveIteratorIterator::SELF_FIRST) as $item
     		    ) {
-    		        if (!$item->isDir()) {
+    		        if (! $item->isDir()) {
                         common_Logger::i('Upload '.$item.' to '.$iterator->getSubPathName());
-    		            $file = new File($dir->getFilesystem(),$dir->getPath().'/'.$iterator->getSubPathName());
+    		            $file = $dir->getFile($iterator->getSubPathName());
     		            $fh = fopen($item, 'r');
-    		            $file->writeStream($fh);
+    		            $file->write($fh);
     		            fclose($fh);
     		        }
     		    }

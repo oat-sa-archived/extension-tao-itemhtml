@@ -53,44 +53,6 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $this->dataFolder = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'samples' . DIRECTORY_SEPARATOR;
     }
 
-    public function testImportOwi()
-    {
-        $itemClass = new \core_kernel_classes_Class(TAO_ITEM_CLASS);
-
-        //validate malformed html
-        $report = $this->importService->importXhtmlFile($this->dataFolder . 'badItem.zip', $itemClass, true);
-        $this->assertFalse($report->containsSuccess());
-        $this->assertTrue($report->containsError());
-
-        $count = 0;
-        foreach ($report as $element) {
-            $this->assertEquals(\common_report_Report::TYPE_ERROR, $element->getType());
-            $count++;
-        }
-        $this->assertEquals(2, $count);
-
-        //invalid package structure
-        $report = $this->importService->importXhtmlFile($this->dataFolder . 'invalid.zip', $itemClass, true);
-        $this->assertFalse($report->containsSuccess());
-        $this->assertTrue($report->containsError());
-
-        $report = $this->importService->importXhtmlFile($this->dataFolder . 'complete.zip', $itemClass, false);
-        $this->assertEquals(\common_report_Report::TYPE_SUCCESS, $report->getType());
-        $owiItem = $report->getData();
-
-        $this->assertInstanceOf('\core_kernel_classes_Resource', $owiItem);
-
-        $itemService = \taoItems_models_classes_ItemsService::singleton();
-        $content = $itemService->getItemContent($owiItem);
-        $this->assertFalse(empty($content));
-
-        $folder = $itemService->getItemFolder($owiItem);
-        $this->assertTrue(file_exists($folder . 'index.html'));
-        $this->assertTrue(file_exists($folder . 'logo.gif'));
-
-        $this->assertTrue($itemService->deleteItem($owiItem));
-    }
-
     /**
      * @expectedException \common_exception_Error
      * @throws \common_exception_Error
