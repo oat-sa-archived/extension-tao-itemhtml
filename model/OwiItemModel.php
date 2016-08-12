@@ -35,6 +35,7 @@ use \taoItems_helpers_Xhtml;
 use \common_Logger;
 use \common_exception_NotImplemented;
 use oat\tao\helpers\Template;
+use League\Flysystem\File;
 
 /**
  * Service dedicated to the management of the XHTML Item Model.
@@ -71,8 +72,10 @@ class OwiItemModel
      */
     public function render( core_kernel_classes_Resource $item, $langCode)
     {
-    	$itemsService = taoItems_models_classes_ItemsService::singleton();
-        $xhtml = $itemsService->getItemContent($item, $langCode);
+    	$itemService = taoItems_models_classes_ItemsService::singleton();
+    	$dir = $itemService->getItemDirectory($item);
+    	$file = new File($dir->getFilesystem(),$dir->getPath().'/index.html');
+        $xhtml = $file->read();
 
         // Check if all needed APIs are referenced.
         $xhtml = $this->replaceDeprecatedApis($xhtml); // throws ItemModelException.

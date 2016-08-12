@@ -33,6 +33,7 @@ use \core_kernel_classes_Property;
 use \tao_helpers_File;
 use \common_Logger;
 use \taoItems_models_classes_Import_ImportException;
+use League\Flysystem\File;
 
 /**
  * Class to import Open Web Items
@@ -97,16 +98,20 @@ class ImportService
         		$rdfItem->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
         		
         		$itemContent = file_get_contents($folder .'index.html');
-        		$itemService->setItemContent($rdfItem, $itemContent, null, 'HOLD_COMMIT');
-        
-        		$itemPath = $itemService->getItemFolder($rdfItem);
-        		if (!tao_helpers_File::move($folder, $itemPath)) {
-        			common_Logger::w('Unable to move '.$folder.' to '.$itemPath);
-        			// clean up
-        			$itemService->deleteItem($rdfItem);
-        			helpers_File::remove($folder);
-        			throw new taoItems_models_classes_Import_ImportException('Unable to copy the resources');
-        		}
+        		$dir = $itemService->getItemDirectory($rdfItem);
+    		    foreach (
+    		        $iterator = new \RecursiveIteratorIterator(
+    		            new \RecursiveDirectoryIterator($folder, \RecursiveDirectoryIterator::SKIP_DOTS),
+    		            \RecursiveIteratorIterator::SELF_FIRST) as $item
+    		    ) {
+    		        if (!$item->isDir()) {
+                        common_Logger::i('Upload '.$item.' to '.$iterator->getSubPathName());
+    		            $file = new File($dir->getFilesystem(),$dir->getPath().'/'.$iterator->getSubPathName());
+    		            $fh = fopen($item, 'r');
+    		            $file->writeStream($fh);
+    		            fclose($fh);
+    		        }
+    		    }
         		
         		$report->setMessage(__('The OWI Item was successfully imported.'));
         		$report->setData($rdfItem);
