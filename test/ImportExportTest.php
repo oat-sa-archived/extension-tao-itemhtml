@@ -23,8 +23,7 @@ namespace oat\taoOpenWebItem\test;
 
 use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\import\ImportService;
-
-
+use oat\taoOpenWebItem\model\OwiItemCompiler;
 
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
@@ -81,12 +80,9 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $this->assertInstanceOf('\core_kernel_classes_Resource', $owiItem);
 
         $itemService = \taoItems_models_classes_ItemsService::singleton();
-        $content = $itemService->getItemContent($owiItem);
-        $this->assertFalse(empty($content));
-
-        $folder = $itemService->getItemFolder($owiItem);
-        $this->assertTrue(file_exists($folder . 'index.html'));
-        $this->assertTrue(file_exists($folder . 'logo.gif'));
+        $dir = $itemService->getItemDirectory($owiItem);
+        $this->assertTrue($dir->getFile('index.html')->exists());
+        $this->assertTrue($dir->getFile('logo.gif')->exists());
 
         $this->assertTrue($itemService->deleteItem($owiItem));
     }
@@ -114,7 +110,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         //validate malformed html
         $report = $this->importService->importContent($this->dataFolder . 'complete.zip', $item);
         $this->assertEquals(\common_report_Report::TYPE_SUCCESS, $report->getType());
-        $content = $itemService->getItemContent($item);
+        $content = $itemService->getItemDirectory($item)->getFile('index.html')->read();
         $this->assertFalse(empty($content));
 
         $report = $this->importService->importContent($this->dataFolder . 'invalid.zip', $itemClass, true);
@@ -132,9 +128,9 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $this->assertInstanceOf('core_kernel_classes_Resource', $missingRemote);
 
         $storage = \tao_models_classes_service_FileStorage::singleton();
-        $compiler = new \taoItems_models_classes_ItemCompiler($missingRemote, $storage);
+        $compiler = new OwiItemCompiler($missingRemote, $storage);
         $report = $compiler->compile();
-        $this->assertEquals($report->getType(), \common_report_Report::TYPE_ERROR);
+        $this->assertEquals(\common_report_Report::TYPE_ERROR, $report->getType());
         $serviceCall = $report->getData();
         $this->assertNull($serviceCall);
 
@@ -151,7 +147,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $this->assertInstanceOf('\core_kernel_classes_Resource', $complete);
 
         $storage = \tao_models_classes_service_FileStorage::singleton();
-        $compiler = new \taoItems_models_classes_ItemCompiler($complete, $storage);
+        $compiler = new OwiItemCompiler($complete, $storage);
         $report = $compiler->compile();
         
         $this->assertEquals($report->getType(), \common_report_Report::TYPE_SUCCESS, 
