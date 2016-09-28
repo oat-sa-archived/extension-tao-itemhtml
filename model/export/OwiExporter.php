@@ -1,5 +1,5 @@
 <?php
-/*  
+/**  
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; under version 2
@@ -22,9 +22,8 @@ namespace oat\taoOpenWebItem\model\export;
 
 use \taoItems_models_classes_ItemExporter;
 use \common_Logger;
+use oat\oatbox\filesystem\Directory;
 
-?>
-<?php
 class OwiExporter extends taoItems_models_classes_ItemExporter {
 
 	/**
@@ -32,16 +31,14 @@ class OwiExporter extends taoItems_models_classes_ItemExporter {
 	 * @see taoItems_models_classes_ItemExporter::export()
 	 */
 	public function export($options = array()) {
-		
-		//add the data location
-		$location = $this->getItemLocation();
-		common_Logger::i('Base location: '.$location);
-		if(is_dir(realpath($location))){
-			
-			$this->addFile($location, ""); // add to root
 
-		}
+	    $itemService = \taoItems_models_classes_ItemsService::singleton();
+	    // copy local files
+	    $source = $itemService->getItemDirectory($this->getItem());
+	    $files = $source->getFlyIterator(Directory::ITERATOR_FILE | Directory::ITERATOR_RECURSIVE);
+	    foreach ($files as $file) {
+	        $relPath = ltrim($source->getRelPath($file), '/');
+	        $this->addFile($file->readStream(), $relPath); 
+	    }
 	}
-		
 }
-?>
