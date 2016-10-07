@@ -132,7 +132,7 @@ class ExportForm
 		$this->form->addElement($instanceElt);
 
 
-    	$this->form->createGroup('options', __('Export an Open Web Item'), array('xml_desc', 'filename', 'exportInstance'));
+    	$this->form->createGroup('options', __('Export an Open Web Item'), array('filename', 'exportInstance'));
     }
 
 }
