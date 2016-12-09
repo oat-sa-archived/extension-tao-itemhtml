@@ -21,6 +21,7 @@
 
 namespace oat\taoOpenWebItem\model\import;
 
+use oat\tao\helpers\uploadReferencerTrait;
 use \tao_models_classes_import_ImportHandler;
 use \helpers_TimeOutHelper;
 use \taoItems_models_classes_ItemsService;
@@ -36,26 +37,27 @@ use \common_exception_Error;
  * @access public
  * @author Joel Bout, <joel@taotesting.com>
  * @package taoOpenWebItem
- 
  */
 class OwiImportHandler implements tao_models_classes_import_ImportHandler
 {
+
+    use uploadReferencerTrait;
 
     /**
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::getLabel()
      */
     public function getLabel() {
-    	return __('Open Web Item');
+        return __('Open Web Item');
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::getForm()
      */
     public function getForm() {
-    	$form = new OwiImportForm();
-    	return $form->getForm();
+        $form = new OwiImportForm();
+        return $form->getForm();
     }
 
     /**
@@ -63,44 +65,42 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
      * @see tao_models_classes_import_ImportHandler::import()
      */
     public function import($class, $form) {
-		
+
         $fileInfo = $form->getValue('source');
 
         if(isset($fileInfo)){
-			
-			helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
-			
-			//get the services instances we will need
-			$itemService = taoItems_models_classes_ItemsService::singleton();
-			
-			$uploadedFile = $fileInfo['uploaded_file'];
-			$uploadedFileBaseName = basename($uploadedFile);
-			// uploaded file name contains an extra prefix that we have to remove.
-			$uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
-			$uploadedFileBaseName = preg_replace('/.zip|.ZIP$/', '', $uploadedFileBaseName);
-			
-			$validate = count($form->getValue('disable_validation')) == 0 ? true : false;
-			
-			$importService = new ImportService();
-			try {
-				$report = $importService->importXhtmlFile($uploadedFile, $class, $validate);
-			}
-			catch (Exception $e) {
-			    $report = common_report_Report::createFailure(__('An unexpected error occured during the OWI Item import.'));
-			    
-			    if ($e instanceof common_exception_UserReadableException) {
-			        $report->add($e);
-			    }
-			}
-			helpers_TimeOutHelper::reset();
-			tao_helpers_File::remove($uploadedFile);
-			
-		} 
-		else {
-		    throw new common_exception_Error('No file provided as parameter \'source\' for OWI import');
-		}
-		
-		return $report;
+
+            helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
+
+            //get the services instances we will need
+            $itemService = taoItems_models_classes_ItemsService::singleton();
+
+            $uploadedFile = $this->getLocalCopy($fileInfo['uploaded_file']);
+            $uploadedFileBaseName = basename($uploadedFile);
+            // uploaded file name contains an extra prefix that we have to remove.
+            $uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
+            $uploadedFileBaseName = preg_replace('/.zip|.ZIP$/', '', $uploadedFileBaseName);
+
+            $validate = count($form->getValue('disable_validation')) == 0 ? true : false;
+
+            $importService = new ImportService();
+            try {
+                $report = $importService->importXhtmlFile($uploadedFile, $class, $validate);
+            } catch (Exception $e) {
+                $report = common_report_Report::createFailure(__('An unexpected error occured during the OWI Item import.'));
+
+                if ($e instanceof common_exception_UserReadableException) {
+                    $report->add($e);
+                }
+            }
+            helpers_TimeOutHelper::reset();
+            tao_helpers_File::remove($uploadedFile);
+
+        } else {
+            throw new common_exception_Error('No file provided as parameter \'source\' for OWI import');
+        }
+
+        return $report;
     }
 
 
