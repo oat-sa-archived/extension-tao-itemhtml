@@ -21,7 +21,8 @@
 
 namespace oat\taoOpenWebItem\model\import;
 
-use oat\tao\helpers\uploadReferencerTrait;
+use oat\oatbox\service\ServiceManager;
+use oat\tao\model\upload\UploadService;
 use \tao_models_classes_import_ImportHandler;
 use \helpers_TimeOutHelper;
 use \taoItems_models_classes_ItemsService;
@@ -40,8 +41,6 @@ use \common_exception_Error;
  */
 class OwiImportHandler implements tao_models_classes_import_ImportHandler
 {
-
-    use uploadReferencerTrait;
 
     /**
      * (non-PHPdoc)
@@ -63,6 +62,10 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
     /**
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::import()
+     * @param \core_kernel_classes_Class $class
+     * @param \tao_helpers_form_Form $form
+     * @return common_report_Report
+     * @throws common_exception_Error
      */
     public function import($class, $form) {
 
@@ -72,10 +75,9 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
 
             helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
 
-            //get the services instances we will need
-            $itemService = taoItems_models_classes_ItemsService::singleton();
-
-            $uploadedFile = $this->getLocalCopy($fileInfo['uploaded_file']);
+            /** @var  UploadService $uploadService */
+            $uploadService = ServiceManager::getServiceManager()->get(UploadService::SERVICE_ID);
+            $uploadedFile = $uploadService->getLocalCopy($fileInfo['uploaded_file']);
             $uploadedFileBaseName = basename($uploadedFile);
             // uploaded file name contains an extra prefix that we have to remove.
             $uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
@@ -94,7 +96,7 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
                 }
             }
             helpers_TimeOutHelper::reset();
-            tao_helpers_File::remove($uploadedFile);
+            $uploadService->remove($uploadedFile);
 
         } else {
             throw new common_exception_Error('No file provided as parameter \'source\' for OWI import');
@@ -105,5 +107,3 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
 
 
 }
-
-?>
