@@ -65,6 +65,8 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
      * @param \core_kernel_classes_Class $class
      * @param \tao_helpers_form_Form $form
      * @return common_report_Report
+     * @throws \oat\oatbox\service\ServiceNotFoundException
+     * @throws \common_Exception
      * @throws common_exception_Error
      */
     public function import($class, $form) {
@@ -77,7 +79,7 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
 
             /** @var  UploadService $uploadService */
             $uploadService = ServiceManager::getServiceManager()->get(UploadService::SERVICE_ID);
-            $uploadedFile = $uploadService->getLocalCopy($fileInfo['uploaded_file']);
+            $uploadedFile = $uploadService->getUploadedFile($fileInfo['uploaded_file']);
             $uploadedFileBaseName = basename($uploadedFile);
             // uploaded file name contains an extra prefix that we have to remove.
             $uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
