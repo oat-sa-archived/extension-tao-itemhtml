@@ -34,10 +34,11 @@ return array(
 	'label' => 'Open-web item model',
     'description' => 'Open Web Item model allows users to create items with rich HTML content',
     'license' => 'GPL-2.0',
-    'version' => '2.9.0',
+    'version' => '2.10.0',
 	'author' => 'Open Assessment Technologies',
 	'requires' => array(
-	   'taoItems' => '>=2.19.0'
+        'taoItems' => '>=2.19.0',
+        'tao' => '>=7.74.0',
     ),
 	'models' => array(
 		'http://www.tao.lu/Ontologies/TAOItem.rdf'
