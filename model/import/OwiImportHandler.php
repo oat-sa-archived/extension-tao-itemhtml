@@ -79,11 +79,7 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
 
             /** @var  UploadService $uploadService */
             $uploadService = ServiceManager::getServiceManager()->get(UploadService::SERVICE_ID);
-            $uploadedFile = $uploadService->getUploadedFile($fileInfo['uploaded_file']);
-            $uploadedFileBaseName = basename($uploadedFile);
-            // uploaded file name contains an extra prefix that we have to remove.
-            $uploadedFileBaseName = preg_replace('/^([0-9a-z])+_/', '', $uploadedFileBaseName, 1);
-            $uploadedFileBaseName = preg_replace('/.zip|.ZIP$/', '', $uploadedFileBaseName);
+            $uploadedFile = $uploadService->getUploadedFlyFile($fileInfo['uploaded_file']);
 
             $validate = count($form->getValue('disable_validation')) == 0 ? true : false;
 
