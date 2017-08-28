@@ -40,6 +40,12 @@ use \ZipArchive;
  */
 class PackageParser extends tao_models_classes_Parser
 {
+    /** @var string Path to tmp file where source is extracted */
+    protected $tmpFile;
+
+    /** @var string Path to directory where source is extracted */
+    protected $tmpDirectory;
+
     /**
      * Validate the zip archive. Local and remote file are allowed.
      * - Check if file is found
@@ -114,40 +120,30 @@ class PackageParser extends tao_models_classes_Parser
      */
     public function extract()
     {
-        $tmpDirectory = $tmpArchive = $archiveLocation = null;
-
-        switch ($this->sourceType) {
-            case self::SOURCE_FILE:
-                $archiveLocation = $this->source;
-                break;
-            case self::SOURCE_FLYFILE:
-                $tmpDirectory = tao_helpers_File::createTempDir();
-                $tmpArchive = uniqid('owiArchive') . 'zip';
-                $archiveLocation = $tmpDirectory . $tmpArchive;
-                $sourceResource = $this->source->readStream();
-                $destinationResource = fopen($archiveLocation, 'w');
-                stream_copy_to_stream($sourceResource, $destinationResource);
-                fclose($sourceResource);
-                fclose($destinationResource);
-                break;
-        }
-
         $content = '';
         $folder = tao_helpers_File::createTempDir();
         $zip = new ZipArchive();
-        if ($zip->open($archiveLocation) === true) {
+        if ($zip->open($this->getExtractedSource()) === true) {
             if ($zip->extractTo($folder)) {
                 $content = $folder;
             }
             $zip->close();
         }
 
-        if (file_exists($tmpDirectory . $tmpArchive)) {
-            unlink($tmpDirectory . $tmpArchive);
-            unlink($tmpDirectory);
-        }
-
         return $content;
+    }
+
+    /**
+     * When the parser is destruct, remove the eventual tmpFile to extracted source
+     */
+    public function __destruct()
+    {
+        if (file_exists($this->tmpFile)) {
+            unlink($this->tmpFile);
+        }
+        if (file_exists($this->tmpDirectory)) {
+            unlink($this->tmpDirectory);
+        }
     }
 
     /**
@@ -157,28 +153,10 @@ class PackageParser extends tao_models_classes_Parser
      */
     protected function isValidArchive()
     {
-        $tmpDirectory = $tmpArchive = $archiveLocation = null;
-
-        switch ($this->sourceType) {
-            case self::SOURCE_FILE:
-                $archiveLocation = $this->source;
-                break;
-            case self::SOURCE_FLYFILE:
-                $tmpDirectory = tao_helpers_File::createTempDir();
-                $tmpArchive = uniqid('owiArchive') . 'zip';
-                $archiveLocation = $tmpDirectory . $tmpArchive;
-                $sourceResource = $this->source->readStream();
-                $destinationResource = fopen($archiveLocation, 'w');
-                stream_copy_to_stream($sourceResource, $destinationResource);
-                fclose($sourceResource);
-                fclose($destinationResource);
-                break;
-        }
-
         $isValid = false;
         $zip = new ZipArchive();
         //check the archive opening and the consistency
-        if ($zip->open($archiveLocation, ZIPARCHIVE::CHECKCONS) !== false) {
+        if ($zip->open($this->getExtractedSource(), ZIPARCHIVE::CHECKCONS) !== false) {
             //check if the manifest is there
             if ($zip->locateName("index.html") !== false) {
                 $isValid = true;
@@ -189,11 +167,32 @@ class PackageParser extends tao_models_classes_Parser
             $this->addError(__("The ZIP archive containing the Open Web Item could not be open."));
         }
 
-        if (file_exists($tmpDirectory . $tmpArchive)) {
-            unlink($tmpDirectory . $tmpArchive);
-            unlink($tmpDirectory);
+        return $isValid;
+    }
+
+    /**
+     * Get a real path of source. If the source is a remote file, download it and return the new path.
+     *
+     * @return File|string
+     * @throws \common_exception_Error
+     */
+    protected function getExtractedSource()
+    {
+        if ($this->source instanceof File) {
+            $this->tmpDirectory = tao_helpers_File::createTempDir();
+            $this->tmpFile = $this->tmpDirectory . uniqid('owiArchive') . 'zip';
+            $sourceResource = $this->source->readStream();
+            $destinationResource = fopen($this->tmpFile, 'w');
+            stream_copy_to_stream($sourceResource, $destinationResource);
+            fclose($sourceResource);
+            fclose($destinationResource);
+            $this->source = $this->tmpFile;
         }
 
-        return $isValid;
+        if (!is_file($this->source)) {
+            throw new \common_exception_Error("Source " . $this->source . " is not a file");
+        }
+
+        return $this->source;
     }
 }
