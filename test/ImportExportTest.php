@@ -21,9 +21,11 @@
 
 namespace oat\taoOpenWebItem\test;
 
+use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\import\ImportService;
 use oat\taoOpenWebItem\model\OwiItemCompiler;
+use tao_models_classes_GenerisService;
 
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
@@ -54,7 +56,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
     public function testImportOwi()
     {
-        $itemClass = new \core_kernel_classes_Class(TAO_ITEM_CLASS);
+        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS);
 
         //validate malformed html
         $report = $this->importService->importXhtmlFile($this->dataFolder . 'badItem.zip', $itemClass, true);
@@ -95,7 +97,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
      */
     public function testWrongClass()
     {
-        $itemClass = new \core_kernel_classes_Class(GENERIS_RESOURCE);
+        $itemClass = new \core_kernel_classes_Class(tao_models_classes_GenerisService::GENERIS_RESOURCE);
         $report = $this->importService->importXhtmlFile('dummy', $itemClass, true);
     }
 
@@ -121,7 +123,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
     public function testCompileMissingRemote()
     {
-        $itemClass = new \core_kernel_classes_Class(TAO_ITEM_CLASS);
+        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS);
 
         $report = $this->importService->importXhtmlFile($this->dataFolder . 'missingRemote.zip', $itemClass, false);
         $missingRemote = $report->getData();
@@ -140,7 +142,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
     public function testCompileComplete()
     {
-        $itemClass = new \core_kernel_classes_Class(TAO_ITEM_CLASS);
+        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS);
 
         $report = $this->importService->importXhtmlFile($this->dataFolder . 'complete.zip', $itemClass, false);
         $complete = $report->getData();
