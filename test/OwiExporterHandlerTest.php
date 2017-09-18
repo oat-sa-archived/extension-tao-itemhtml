@@ -46,7 +46,7 @@ class OwiExporterHandlerTest extends TaoPhpUnitTestRunner
     public function testGetForm()
     {
         $handler = new OwiExportHandler();
-        $this->assertInstanceOf('tao_helpers_form_Form', $handler->getExportForm( new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS)));
+        $this->assertInstanceOf('tao_helpers_form_Form', $handler->getExportForm( new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS_URI)));
         $resourceMock = $this->getMockBuilder('core_kernel_classes_Resource')
         ->setMockClassName('FakeResource')
         ->setConstructorArgs(array(
@@ -62,7 +62,7 @@ class OwiExporterHandlerTest extends TaoPhpUnitTestRunner
      */
     public function testExport()
     {
-        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS);
+        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS_URI);
         
         $report = $this->importService->importXhtmlFile($this->dataFolder . 'complete.zip', $itemClass, false);
         $complete = $report->getData();
