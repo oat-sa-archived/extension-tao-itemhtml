@@ -19,6 +19,7 @@
  */
 namespace oat\taoOpenWebItem\test;
 
+use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
 use \ZipArchive;
 use \taoItems_models_classes_ItemsService;
@@ -53,7 +54,7 @@ class OwiImportHandlerTest extends TaoPhpUnitTestRunner
      */
     public function testImport()
     {
-        $itemClass = new \core_kernel_classes_Class(TAO_ITEM_CLASS);
+        $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS_URI);
         
         $cp = copy($this->dataFolder . 'complete.zip', sys_get_temp_dir() . '/complete.zip');
         $fileinfo = array(
