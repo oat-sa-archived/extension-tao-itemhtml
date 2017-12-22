@@ -21,6 +21,7 @@
 
 namespace oat\taoOpenWebItem\test;
 
+use oat\generis\model\GenerisRdf;
 use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\import\ImportService;
@@ -98,7 +99,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
      */
     public function testWrongClass()
     {
-        $itemClass = new \core_kernel_classes_Class(tao_models_classes_GenerisService::PROPERTY_GENERIS_RESOURCE);
+        $itemClass = new \core_kernel_classes_Class(GenerisRdf::CLASS_GENERIS_RESOURCE);
         $report = $this->importService->importXhtmlFile('dummy', $itemClass, true);
     }
 
