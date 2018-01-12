@@ -133,6 +133,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
         $storage = \tao_models_classes_service_FileStorage::singleton();
         $compiler = new OwiItemCompiler($missingRemote, $storage);
+        $compiler->setServiceLocator($this->getServiceLocator());
         $report = $compiler->compile();
         $this->assertEquals(\common_report_Report::TYPE_ERROR, $report->getType());
         $serviceCall = $report->getData();
@@ -152,6 +153,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
 
         $storage = \tao_models_classes_service_FileStorage::singleton();
         $compiler = new OwiItemCompiler($complete, $storage);
+        $compiler->setServiceLocator($this->getServiceLocator());
         $report = $compiler->compile();
         
         $this->assertEquals($report->getType(), \common_report_Report::TYPE_SUCCESS, 
