@@ -34,11 +34,11 @@ return array(
 	'label' => 'Open-web item model',
     'description' => 'Open Web Item model allows users to create items with rich HTML content',
     'license' => 'GPL-2.0',
-    'version' => '3.2.1',
+    'version' => '3.3.0',
 	'author' => 'Open Assessment Technologies',
 	'requires' => array(
         'taoItems' => '>=2.22.0',
-        'tao' => '>=15.4.0',
+        'tao' => '>=16.0.0',
         'generis' => '>=5.9.0',
     ),
 	'models' => array(
