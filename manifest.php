@@ -39,7 +39,7 @@ return array(
 	'requires' => array(
         'taoItems' => '>=2.22.0',
         'tao' => '>=15.4.0',
-        'generis' => '>=6.9.0',
+        'generis' => '>=6.14.0',
     ),
 	'models' => array(
 		'http://www.tao.lu/Ontologies/TAOItem.rdf'
