@@ -93,7 +93,7 @@ class ImportService
         		}
         		
         		//set the XHTML type
-        		$rdfItem->setPropertyValue(new core_kernel_classes_Property(TAO_ITEM_MODEL_PROPERTY), TAO_ITEM_MODEL_XHTML);
+        		$rdfItem->setPropertyValue(new core_kernel_classes_Property(taoItems_models_classes_ItemsService::PROPERTY_ITEM_MODEL), TAO_ITEM_MODEL_XHTML);
         		
         		$itemContent = file_get_contents($folder .'index.html');
         		$dir = $itemService->getItemDirectory($rdfItem);
