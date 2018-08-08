@@ -19,7 +19,7 @@
  * 
  */
 
-namespace oat\taoOpenWebItem\test;
+namespace oat\taoOpenWebItem\test\integration;
 
 use oat\generis\model\GenerisRdf;
 use oat\tao\model\TaoOntology;
@@ -29,7 +29,7 @@ use oat\taoOpenWebItem\model\OwiItemCompiler;
 use tao_models_classes_GenerisService;
 use taoItems_models_classes_ItemsService;
 
-include_once dirname(__FILE__) . '/../includes/raw_start.php';
+include_once dirname(__FILE__) . '/../../includes/raw_start.php';
 
 /**
  * @author Joel Bout, <joel@taotesting.com>

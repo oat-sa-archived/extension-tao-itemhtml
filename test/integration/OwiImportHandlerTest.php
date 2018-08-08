@@ -17,7 +17,7 @@
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *
  */
-namespace oat\taoOpenWebItem\test;
+namespace oat\taoOpenWebItem\test\integration;
 
 use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
@@ -55,7 +55,7 @@ class OwiImportHandlerTest extends TaoPhpUnitTestRunner
     public function testImport()
     {
         $itemClass = new \core_kernel_classes_Class(TaoOntology::ITEM_CLASS_URI);
-        
+
         $cp = copy($this->dataFolder . 'complete.zip', sys_get_temp_dir() . '/complete.zip');
         $fileinfo = array(
             'uploaded_file' => sys_get_temp_dir() . '/complete.zip'
@@ -66,19 +66,20 @@ class OwiImportHandlerTest extends TaoPhpUnitTestRunner
                 'getValue'
             ))
             ->getMock();
-        
+
         $form->expects($this->exactly(2))
             ->method('getValue')
             ->withConsecutive($this->equalTo('source'), $this->equalTo('disable_validation'))
             ->will($this->onConsecutiveCalls($fileinfo, array()));
-        
+
         $handler = new OwiImportHandler();
         $report = $handler->import($itemClass, $form);
         $this->assertInstanceOf('common_report_Report', $report);
-        
+
+        // @todo fix (returns type error)
         $this->assertEquals($report->getType(), \common_report_Report::TYPE_SUCCESS);
         $this->assertInstanceOf('\core_kernel_classes_Resource', $report->getData());
-        
+
         $itemService = taoItems_models_classes_ItemsService::singleton();
         $this->assertTrue($itemService->deleteItem($report->getData()));
     }

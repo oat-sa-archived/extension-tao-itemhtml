@@ -17,7 +17,7 @@
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *
  */
-namespace oat\taoOpenWebItem\test;
+namespace oat\taoOpenWebItem\test\integration;
 
 use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
@@ -25,6 +25,8 @@ use \ZipArchive;
 use \taoItems_models_classes_ItemsService;
 use oat\taoOpenWebItem\model\export\OwiExportHandler;
 use oat\taoOpenWebItem\model\import\ImportService;
+
+// @todo fix "common_Exception: Call to getItemDirectory for item without model"
 
 class OwiExporterHandlerTest extends TaoPhpUnitTestRunner
 {
