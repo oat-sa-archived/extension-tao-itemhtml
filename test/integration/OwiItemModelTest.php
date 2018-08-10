@@ -17,7 +17,7 @@
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *
  */
-namespace oat\taoOpenWebItem\test;
+namespace oat\taoOpenWebItem\test\integration;
 
 use oat\tao\test\TaoPhpUnitTestRunner;
 use oat\taoOpenWebItem\model\OwiItemModel;
