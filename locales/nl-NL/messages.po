@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.3.0-sprint86\n"
+"PO-Revision-Date: 2018-09-26T12:04:44\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: nl-NL\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: nl-NL\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "%s was successfully replaced"
+msgstr "%s is succesvol vervangen"
+
+msgid "Add a zip containing an OWI"
+msgstr "Voeg een zip met een OWI toe"
+
+msgid "An Open Web Item package must contain an index.html file at the root of the archive."
+msgstr "Een Open Web Item pakketje moet een index.html bestand bevatten in de root van het archief."
+
+msgid "An unexpected error occured during the OWI Item import."
+msgstr "Er trad een onverwachte fout op bij de import van het OWI item."
+
+msgid "Disable validation"
+msgstr "Validatie uitschakelen"
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Export an Open Web Item"
+msgstr "Exporteer een Open Web Item"
+
+msgid "Failed retrieving %s"
+msgstr "Terughalen %s is mislukt"
+
+msgid "Failed to publish %1$s"
+msgstr "Het publiceren van %1$s is mislukt"
+
+msgid "File name"
+msgstr "Bestandsnaam"
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Import an Open Web Item"
+msgstr "Importeer een Open Web Item"
+
+msgid "Import Content"
+msgstr "Importeer inhoud"
+
+msgid "Item \"%s\" is not available in any language"
+msgstr "Item \"%s\" is niet langer in een taal beschikbaar "
+
+msgid "Item \'%s\' has no model"
+msgstr ""
+
+msgid "Items"
+msgstr "Items"
+
+msgid "Open Web Item"
+msgstr "Open Web Item"
+
+msgid "Published \"%1$s\" in language \"%2$s"
+msgstr "\"%1$s\" Gepubliceerd in taal \"%2$s"
+
+msgid "Published %s"
+msgstr "%s Gepubliceerd"
+
+msgid "The OWI Item was successfully imported."
+msgstr "Het OWI item is succesvol geïmporteerd"
+
+msgid "The ZIP archive containing the Open Web Item could not be open."
+msgstr "Het ZIP bestand met het Open Web Item kon niet worden geopend."
+
+msgid "This Open Web Item already has content. Go to Preview to see it or import a replacement below."
+msgstr "Dit Open Web Item heeft al content. Ga naar voorbeeld om het te zien of importeer een vervanger hieronder."
+
+msgid "Validation of the imported file has failed"
+msgstr "Validatie van het geïmporteerde bestand is mislukt"
+
+msgid "Validation of the imported package has failed"
+msgstr "Validatie van het geïmporteerde bestand is mislukt"
+
