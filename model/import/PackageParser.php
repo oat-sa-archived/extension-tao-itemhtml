@@ -127,7 +127,7 @@ class PackageParser extends tao_models_classes_Parser
         $source = $this->getExtractedSource();
         if ($zip->open($source) === true) {
             if (tao_helpers_File::checkWhetherArchiveIsBomb($zip)) {
-                throw new \common_exception(sprintf('Source %s seems to be a ZIP bomb', $source));
+                throw new \common_Exception(sprintf('Source "%s" seems to be a ZIP bomb', $source));
             }
             if ($zip->extractTo($folder)) {
                 $content = $folder;
