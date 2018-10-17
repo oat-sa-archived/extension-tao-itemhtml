@@ -29,9 +29,9 @@ use \tao_models_classes_Parser;
 use \common_ext_ExtensionsManager;
 use \helpers_File;
 use \core_kernel_classes_Property;
-use \tao_helpers_File;
 use \common_Logger;
 use \taoItems_models_classes_Import_ImportException;
+use oat\taoOpenWebItem\model\OwiItemModel;
 
 /**
  * Class to import Open Web Items
@@ -93,7 +93,7 @@ class ImportService
         		}
         		
         		//set the XHTML type
-        		$rdfItem->setPropertyValue(new core_kernel_classes_Property(taoItems_models_classes_ItemsService::PROPERTY_ITEM_MODEL), TAO_ITEM_MODEL_XHTML);
+                $rdfItem->setPropertyValue(new core_kernel_classes_Property(taoItems_models_classes_ItemsService::PROPERTY_ITEM_MODEL), OwiItemModel::ITEMMODEL_URI);
         		
         		$itemContent = file_get_contents($folder .'index.html');
         		$dir = $itemService->getItemDirectory($rdfItem);
@@ -154,7 +154,7 @@ class ImportService
 	 * replacing the old content
 	 * 
 	 * @param string $package
-	 * @param core_kernel_classeS_resource $item
+	 * @param \core_kernel_classes_Resource $item
 	 * @param string $language
 	 * @param string $validate
 	 * @throws taoItems_models_classes_Import_ExtractException

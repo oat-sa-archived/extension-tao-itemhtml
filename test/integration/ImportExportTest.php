@@ -28,6 +28,7 @@ use oat\taoOpenWebItem\model\import\ImportService;
 use oat\taoOpenWebItem\model\OwiItemCompiler;
 use tao_models_classes_GenerisService;
 use taoItems_models_classes_ItemsService;
+use oat\taoOpenWebItem\model\OwiItemModel;
 
 include_once dirname(__FILE__) . '/../../includes/raw_start.php';
 
@@ -109,7 +110,7 @@ class ImportExportTest extends TaoPhpUnitTestRunner
         $itemService = \taoItems_models_classes_ItemsService::singleton();
         $itemClass = $itemService->getRootClass();
         $item = $itemService->createInstance($itemClass, $label);
-        $item->setPropertyValue(new \core_kernel_classes_Property(taoItems_models_classes_ItemsService::PROPERTY_ITEM_MODEL), TAO_ITEM_MODEL_XHTML);
+        $item->setPropertyValue(new \core_kernel_classes_Property(taoItems_models_classes_ItemsService::PROPERTY_ITEM_MODEL), OwiItemModel::ITEMMODEL_URI);
 
         //validate malformed html
         $report = $this->importService->importContent($this->dataFolder . 'complete.zip', $item);
