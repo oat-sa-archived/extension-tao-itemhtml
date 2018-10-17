@@ -21,32 +21,35 @@
 
 namespace oat\taoOpenWebItem\model\import;
 
-use oat\oatbox\service\ServiceManager;
-use oat\tao\model\upload\UploadService;
+use oat\tao\model\import\ImportHandlerHelperTrait;
+use oat\tao\model\import\TaskParameterProviderInterface;
 use \tao_models_classes_import_ImportHandler;
 use \helpers_TimeOutHelper;
-use \taoItems_models_classes_ItemsService;
 use \Exception;
 use \common_report_Report;
 use \common_exception_UserReadableException;
-use \tao_helpers_File;
 use \common_exception_Error;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
 /**
  * Short description of class taoOpenWebItem_models_classes_ItemModel
  *
- * @access public
- * @author Joel Bout, <joel@taotesting.com>
+ * @access  public
+ * @author  Joel Bout, <joel@taotesting.com>
  * @package taoOpenWebItem
  */
-class OwiImportHandler implements tao_models_classes_import_ImportHandler
+class OwiImportHandler implements tao_models_classes_import_ImportHandler, ServiceLocatorAwareInterface, TaskParameterProviderInterface
 {
+    use ImportHandlerHelperTrait {
+        getTaskParameters as getDefaultTaskParameters;
+    }
 
     /**
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::getLabel()
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         return __('Open Web Item');
     }
 
@@ -54,8 +57,10 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::getForm()
      */
-    public function getForm() {
+    public function getForm()
+    {
         $form = new OwiImportForm();
+
         return $form->getForm();
     }
 
@@ -63,39 +68,42 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
      * (non-PHPdoc)
      * @see tao_models_classes_import_ImportHandler::import()
      * @param \core_kernel_classes_Class $class
-     * @param \tao_helpers_form_Form $form
+     * @param \tao_helpers_form_Form     $form
      * @return common_report_Report
      * @throws \oat\oatbox\service\ServiceNotFoundException
      * @throws \common_Exception
      * @throws common_exception_Error
      */
-    public function import($class, $form) {
+    public function import($class, $form)
+    {
+        $uploadedFile = $this->fetchUploadedFile($form);
 
-        $fileInfo = $form->getValue('source');
+        if (isset($uploadedFile)) {
 
-        if(isset($fileInfo)){
+            helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);
 
-            helpers_TimeOutHelper::setTimeOutLimit(helpers_TimeOutHelper::LONG);	//the zip extraction is a long process that can exced the 30s timeout
+            // for backward compatibility
+            $disable_validation = $form instanceof \tao_helpers_form_Form
+                ? (array)$form->getValue('disable_validation')
+                : (array)$form['disable_validation'];
 
-            /** @var  UploadService $uploadService */
-            $uploadService = ServiceManager::getServiceManager()->get(UploadService::SERVICE_ID);
-            $uploadedFile = $uploadService->getUploadedFlyFile($fileInfo['uploaded_file']);
-
-            $validate = count($form->getValue('disable_validation')) == 0 ? true : false;
+            $validate = count($disable_validation) == 0 ? true : false;
 
             $importService = new ImportService();
             try {
                 $report = $importService->importXhtmlFile($uploadedFile, $class, $validate);
             } catch (Exception $e) {
-                $report = common_report_Report::createFailure(__('An unexpected error occured during the OWI Item import.'));
+                $report = common_report_Report::createFailure(
+                    __('An unexpected error occured during the OWI Item import.')
+                );
 
                 if ($e instanceof common_exception_UserReadableException) {
                     $report->add($e);
                 }
             }
             helpers_TimeOutHelper::reset();
-            $uploadService->remove($uploadService->getUploadedFlyFile($fileInfo['uploaded_file']));
 
+            $this->getUploadService()->remove($uploadedFile);
         } else {
             throw new common_exception_Error('No file provided as parameter \'source\' for OWI import');
         }
@@ -103,5 +111,20 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler
         return $report;
     }
 
+    /**
+     * Defines the task parameters to be stored for later use.
+     *
+     * @param \tao_helpers_form_Form $form
+     * @return array
+     */
+    public function getTaskParameters(\tao_helpers_form_Form $form)
+    {
+        return array_merge(
+            [
+                'disable_validation' => $form->getValue('disable_validation'),
+            ],
+            $this->getDefaultTaskParameters($form)
+        );
+    }
 
 }
