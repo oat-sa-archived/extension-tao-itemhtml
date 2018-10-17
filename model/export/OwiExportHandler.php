@@ -30,6 +30,7 @@ use \Exception;
 use \ZipArchive;
 use \common_Exception;
 use \common_Logger;
+use oat\taoOpenWebItem\model\OwiItemModel;
 
 /**
  * Exporter of taoOpenWebItem
@@ -87,7 +88,7 @@ class OwiExportHandler implements tao_models_classes_export_ExportHandler
 			}
 				
 			$item = new core_kernel_classes_Resource($uri);
-			if($itemService->hasItemModel($item, array(TAO_ITEM_MODEL_XHTML))){
+			if($itemService->hasItemModel($item, array(OwiItemModel::ITEMMODEL_URI))){
 				$exporter = new OwiExporter($item, $zipArchive);
 				$exporter->export();
 			} else {
