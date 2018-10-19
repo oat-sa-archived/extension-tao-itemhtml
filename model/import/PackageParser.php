@@ -117,13 +117,18 @@ class PackageParser extends tao_models_classes_Parser
      * Extract the zip archive and return the path to extracted package
      *
      * @return string
+     * @throws \common_exception
      */
     public function extract()
     {
         $content = '';
         $folder = tao_helpers_File::createTempDir();
         $zip = new ZipArchive();
-        if ($zip->open($this->getExtractedSource()) === true) {
+        $source = $this->getExtractedSource();
+        if ($zip->open($source) === true) {
+            if (tao_helpers_File::checkWhetherArchiveIsBomb($zip)) {
+                throw new \common_Exception(sprintf('Source "%s" seems to be a ZIP bomb', $source));
+            }
             if ($zip->extractTo($folder)) {
                 $content = $folder;
             }

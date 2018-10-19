@@ -30,6 +30,7 @@ use \core_kernel_classes_Resource;
 use \tao_helpers_Display;
 use \core_kernel_classes_Class;
 use \tao_helpers_Uri;
+use oat\taoOpenWebItem\model\OwiItemModel;
 
 /**
  * Export form for OWIs
@@ -92,8 +93,9 @@ class ExportForm
     	$options = array();
     	if(isset($this->data['instance'])){
     		$item = $this->data['instance'];
-    		if($item instanceof core_kernel_classes_Resource){
-    			if($itemService->hasItemModel($item, array(TAO_ITEM_MODEL_XHTML))){
+            if($item instanceof core_kernel_classes_Resource)
+            {
+                if($itemService->hasItemModel($item, array(OwiItemModel::ITEMMODEL_URI))){
     				$fileName = strtolower(tao_helpers_Display::textCleaner($item->getLabel()));
     				$options[$item->getUri()] = $item->getLabel();
     			}
@@ -109,7 +111,7 @@ class ExportForm
     		if($class instanceof core_kernel_classes_Class){
                     $fileName =  strtolower(tao_helpers_Display::textCleaner($class->getLabel(), '*'));
                     foreach($class->getInstances() as $instance){
-                        if($itemService->hasItemModel($instance, array(TAO_ITEM_MODEL_XHTML)) && $itemService->hasItemContent($instance)){
+                        if($itemService->hasItemModel($instance, array(OwiItemModel::ITEMMODEL_URI)) && $itemService->hasItemContent($instance)){
                             $options[$instance->getUri()] = $instance->getLabel();
                         }
                     }
