@@ -21,6 +21,7 @@
 
 namespace oat\taoOpenWebItem\controller;
 
+use oat\tao\model\routing\AnnotationReader\security;
 use oat\taoOpenWebItem\model\import\OwiImportForm;
 use oat\taoOpenWebItem\model\import\ImportService;
 use \tao_actions_CommonModule;
@@ -45,6 +46,7 @@ class Authoring extends tao_actions_CommonModule {
 	
 	/**
 	 * constructor uses default TaoService
+     * @security("hide");
 	 */
 	public function __construct(){
 		parent::__construct();
