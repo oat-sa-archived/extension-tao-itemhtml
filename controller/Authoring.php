@@ -21,6 +21,7 @@
 
 namespace oat\taoOpenWebItem\controller;
 
+use oat\tao\model\routing\AnnotationReader\security;
 use oat\taoOpenWebItem\model\import\OwiImportForm;
 use oat\taoOpenWebItem\model\import\ImportService;
 use \tao_actions_CommonModule;
@@ -42,56 +43,55 @@ use \tao_helpers_form_FormFactory;
  */
 
 class Authoring extends tao_actions_CommonModule {
-	
-	/**
-	 * constructor uses default TaoService
-	 */
-	public function __construct(){
-		parent::__construct();
-		$this->service = tao_models_classes_TaoService::singleton();
-		$this->defaultData();
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see tao_actions_TaoModule::getRootClass()
-	 */
-	public function index() {
-	    if (!$this->hasRequestParameter('instance') || strlen($this->getRequestParameter('instance')) == 0) {
-	        throw new common_exception_MissingParameter('instance', __CLASS__);
-	    }
-	    $item = new core_kernel_classes_Resource(tao_helpers_Uri::decode($this->getRequestParameter('instance')));
-	    
+
+    /**
+     * constructor uses default TaoService
+     * @security("hide");
+     */
+    public function __construct(){
+        parent::__construct();
+        $this->service = tao_models_classes_TaoService::singleton();
+        $this->defaultData();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see tao_actions_TaoModule::getRootClass()
+     */
+    public function index() {
+        if (!$this->hasRequestParameter('instance') || strlen($this->getRequestParameter('instance')) == 0) {
+            throw new common_exception_MissingParameter('instance', __CLASS__);
+        }
+        $item = new core_kernel_classes_Resource(tao_helpers_Uri::decode($this->getRequestParameter('instance')));
+
         $this->setData('hasContent', \taoItems_models_classes_ItemsService::singleton()->hasItemContent($item));
-	    
-	    $formContainer = new OwiImportForm();
-		$myForm = $formContainer->getForm();
-		
-		$element = tao_helpers_form_FormFactory::getElement('instance', 'hidden');
-		$element->setValue($item->getUri());
-		$myForm->addElement($element);
-		
-		// for dataAcl on items
-		$element = tao_helpers_form_FormFactory::getElement('id', 'hidden');
-		$element->setValue($item->getUri());
-		$myForm->addElement($element);
-		
-		
-		if($myForm->isSubmited()){
-		    if($myForm->isValid()){
-		        $validate = count($myForm->getValue('disable_validation')) == 0 ? true : false;
-		        
-		        $fileInfo = $myForm->getValue('source');
-		        $uploadedFile = $fileInfo['uploaded_file'];
-		        
-		        $importer = new ImportService();
-		        $report = $importer->importContent($uploadedFile, $item, '', $validate);
-		        return $this->returnReport($report);
-		    }
-		}
-		$this->setData('formTitle', __('Import Content'));
-		$this->setData('myForm', $myForm->render());
-		$this->setView('form.tpl');
-	}
-	
+
+        $formContainer = new OwiImportForm();
+        $myForm = $formContainer->getForm();
+
+        $element = tao_helpers_form_FormFactory::getElement('instance', 'hidden');
+        $element->setValue($item->getUri());
+        $myForm->addElement($element);
+
+        // for dataAcl on items
+        $element = tao_helpers_form_FormFactory::getElement('id', 'hidden');
+        $element->setValue($item->getUri());
+        $myForm->addElement($element);
+
+        if($myForm->isSubmited()){
+            if($myForm->isValid()){
+                $validate = count($myForm->getValue('disable_validation')) == 0 ? true : false;
+
+                $fileInfo = $myForm->getValue('source');
+                $uploadedFile = $fileInfo['uploaded_file'];
+
+                $importer = new ImportService();
+                $report = $importer->importContent($uploadedFile, $item, '', $validate);
+                return $this->returnReport($report);
+            }
+        }
+        $this->setData('formTitle', __('Import Content'));
+        $this->setData('myForm', $myForm->render());
+        $this->setView('form.tpl');
+    }
 }
