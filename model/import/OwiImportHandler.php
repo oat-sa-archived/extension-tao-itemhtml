@@ -69,12 +69,13 @@ class OwiImportHandler implements tao_models_classes_import_ImportHandler, Servi
      * @see tao_models_classes_import_ImportHandler::import()
      * @param \core_kernel_classes_Class $class
      * @param \tao_helpers_form_Form     $form
+     * @param string|null $userId owner of the resource
      * @return common_report_Report
      * @throws \oat\oatbox\service\ServiceNotFoundException
      * @throws \common_Exception
      * @throws common_exception_Error
      */
-    public function import($class, $form)
+    public function import($class, $form, $userId = null)
     {
         $uploadedFile = $this->fetchUploadedFile($form);
 
