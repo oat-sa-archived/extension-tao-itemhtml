@@ -79,8 +79,7 @@ class Authoring extends tao_actions_CommonModule {
         $element->setValue($item->getUri());
         $myForm->addElement($element);
 
-        if($myForm->isSubmited() && $myForm->isValid()) {
-            $this->validateCsrf();
+        if ($myForm->isSubmited() && $myForm->isValid()) {
             $validate = count($myForm->getValue('disable_validation')) === 0;
 
             $fileInfo = $myForm->getValue('source');
