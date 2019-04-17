@@ -30,6 +30,7 @@ use \common_exception_MissingParameter;
 use \core_kernel_classes_Resource;
 use \tao_helpers_Uri;
 use \tao_helpers_form_FormFactory;
+use tao_helpers_form_FormContainer as FormContainer;
 
 /**
  * This controller allows the additon and deletion
@@ -66,9 +67,8 @@ class Authoring extends tao_actions_CommonModule {
 
         $this->setData('hasContent', \taoItems_models_classes_ItemsService::singleton()->hasItemContent($item));
 
-        $formContainer = new OwiImportForm();
+        $formContainer = new OwiImportForm([], [FormContainer::CSRF_PROTECTION_OPTION => true]);
         $myForm = $formContainer->getForm();
-        $myForm->addCsrfTokenProtection();
 
         $element = tao_helpers_form_FormFactory::getElement('instance', 'hidden');
         $element->setValue($item->getUri());
