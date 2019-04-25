@@ -22,16 +22,16 @@
 namespace oat\taoOpenWebItem\scripts\update;
 
 
-class Updater extends \common_ext_ExtensionUpdater 
+class Updater extends \common_ext_ExtensionUpdater
 {
 
 	/**
-     * 
+     *
      * @param string $currentVersion
      * @return string $versionUpdatedTo
      */
     public function update($initialVersion) {
-        
+
         $currentVersion = $initialVersion;
 		if ($currentVersion == '2.6' || $currentVersion == '2.6.1' ||$currentVersion == '2.6.2' ) {
 			$currentVersion = '2.7.0';
@@ -39,6 +39,6 @@ class Updater extends \common_ext_ExtensionUpdater
 
         $this->setVersion($currentVersion);
 
-        $this->skip('2.7.0', '5.1.0');
+        $this->skip('2.7.0', '6.0.0');
 	}
 }
