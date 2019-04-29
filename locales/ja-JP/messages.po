@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.3.0-sprint96\n"
+"PO-Revision-Date: 2019-04-25T01:06:31\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: ja-JP\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: ja-JP\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "%s was successfully replaced"
+msgstr "%s は正常に置き換えられました"
+
+msgid "Add a zip containing an OWI"
+msgstr "OWIを含むZIPを追加"
+
+msgid "An Open Web Item package must contain an index.html file at the root of the archive."
+msgstr "オープンWebアイテムパッケージには、アーカイブのルートに index.html ファイルが含まれなければいけません。"
+
+msgid "An unexpected error occured during the OWI Item import."
+msgstr "OWI アイテムのインポート中に予期せぬエラーが発生しました。"
+
+msgid "Disable validation"
+msgstr "検証を無効にする"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Export an Open Web Item"
+msgstr "オープンWebアイテムエクスポート"
+
+msgid "Failed retrieving %s"
+msgstr "%s の取得失敗"
+
+msgid "Failed to publish %1$s"
+msgstr "%1$s の公開に失敗"
+
+msgid "File name"
+msgstr "ファイル名"
+
+msgid "Import"
+msgstr "インポート"
+
+msgid "Import an Open Web Item"
+msgstr "オープンWebアイテムインポート"
+
+msgid "Import Content"
+msgstr "コンテンツインポート"
+
+msgid "Item \"%s\" is not available in any language"
+msgstr "アイテム \"%s\" はどの言語でも利用できません"
+
+msgid "Item \'%s\' has no model"
+msgstr ""
+
+msgid "Items"
+msgstr "アイテム"
+
+msgid "Open Web Item"
+msgstr "オープンWebアイテム"
+
+msgid "Published \"%1$s\" in language \"%2$s"
+msgstr "言語 \"%2$s に \"%1$s\" を公開"
+
+msgid "Published %s"
+msgstr "%s を公開"
+
+msgid "Resource(s) successfully exported."
+msgstr ""
+
+msgid "The OWI Item was successfully imported."
+msgstr "OWIアイテムのインポートに成功しました。"
+
+msgid "The ZIP archive containing the Open Web Item could not be open."
+msgstr "オープンWebアイテムを含むZIPアーカイブを開くことができませんでした。"
+
+msgid "This Open Web Item already has content. Go to Preview to see it or import a replacement below."
+msgstr "このオープンWebアイテムにはすでにコンテンツがあります。プレビューに移動して、それを確認するか、下の交換品をインポートします。"
+
+msgid "Validation of the imported file has failed"
+msgstr "インポートされたファイルの検証に失敗しました。"
+
+msgid "Validation of the imported package has failed"
+msgstr "インポートされたパッケージの検証に失敗しました。"
+

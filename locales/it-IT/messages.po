@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.3.0-sprint96\n"
+"PO-Revision-Date: 2019-04-25T01:04:24\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: it-IT\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: it-IT\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "%s was successfully replaced"
+msgstr "%s è stato sostituito con successo"
+
+msgid "Add a zip containing an OWI"
+msgstr "Aggiungere un zip contenente un OWI"
+
+msgid "An Open Web Item package must contain an index.html file at the root of the archive."
+msgstr "Un pacchetto di Elementi Web Aperti deve contenere un file index.html nella directory principale dell'archivio."
+
+msgid "An unexpected error occured during the OWI Item import."
+msgstr "Si è verificato un errore imprevisto durante l'importazione dell'elemento OWI."
+
+msgid "Disable validation"
+msgstr "Disabilitare la convalida"
+
+msgid "Export"
+msgstr "Esporta"
+
+msgid "Export an Open Web Item"
+msgstr "Esportazione di un Elemento Web Aperto"
+
+msgid "Failed retrieving %s"
+msgstr "Impossibile recuperare %s"
+
+msgid "Failed to publish %1$s"
+msgstr "Impossibile pubblicare %1$s"
+
+msgid "File name"
+msgstr "Nome file"
+
+msgid "Import"
+msgstr "Importa"
+
+msgid "Import an Open Web Item"
+msgstr "Importa un Elemento Web Aperto"
+
+msgid "Import Content"
+msgstr "Importa Contenuto"
+
+msgid "Item \"%s\" is not available in any language"
+msgstr "L'elemento \"%s\" non è disponibile in nessuna lingua"
+
+msgid "Item \'%s\' has no model"
+msgstr ""
+
+msgid "Items"
+msgstr "Elementi"
+
+msgid "Open Web Item"
+msgstr "Elemento Web Aperto"
+
+msgid "Published \"%1$s\" in language \"%2$s"
+msgstr "Pubblicato \"%1$s\" nella lingua \"%2$s"
+
+msgid "Published %s"
+msgstr "Pubblicato %s"
+
+msgid "Resource(s) successfully exported."
+msgstr ""
+
+msgid "The OWI Item was successfully imported."
+msgstr "L'elemento OWI è stato importato con successo."
+
+msgid "The ZIP archive containing the Open Web Item could not be open."
+msgstr "Impossibile aprire l'archivio ZIP contenente l'Elemento Web Aperto."
+
+msgid "This Open Web Item already has content. Go to Preview to see it or import a replacement below."
+msgstr "Questo Elemento Web Aperto ha già del contenuto. Vai a Anteprima per visualizzarlo o importare una sostituzione di seguito."
+
+msgid "Validation of the imported file has failed"
+msgstr "La convalida del file importato non è riuscita"
+
+msgid "Validation of the imported package has failed"
+msgstr "La convalida del pacchetto importato non è riuscita"
+

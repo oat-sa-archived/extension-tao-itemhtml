@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.3.0-sprint96\n"
+"PO-Revision-Date: 2019-04-25T01:10:56\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: ca-ES-valencia\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: ca-ES-valencia\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "%s was successfully replaced"
+msgstr "%s s'ha reemplaçat correctament"
+
+msgid "Add a zip containing an OWI"
+msgstr "Afig un zip que conté un OWI"
+
+msgid "An Open Web Item package must contain an index.html file at the root of the archive."
+msgstr "Un paquet de tipus OWI (Open Web Item, Element Web Obert) ha de contindre un fitxer index.html a l'arrel de l'arxiu.  "
+
+msgid "An unexpected error occured during the OWI Item import."
+msgstr "S'ha produït un error inesperat durant la importació de l'element OWI."
+
+msgid "Disable validation"
+msgstr "Inhabilita la validació"
+
+msgid "Export"
+msgstr "Exporta"
+
+msgid "Export an Open Web Item"
+msgstr "Exporta un element web obert"
+
+msgid "Failed retrieving %s"
+msgstr "S'ha produït un error en recuperar %s"
+
+msgid "Failed to publish %1$s"
+msgstr "S'ha produït un error en publicar %1$s"
+
+msgid "File name"
+msgstr "Nom del fitxer"
+
+msgid "Import"
+msgstr "Importa"
+
+msgid "Import an Open Web Item"
+msgstr "Importa un element web obert"
+
+msgid "Import Content"
+msgstr "Importa el contingut"
+
+msgid "Item \"%s\" is not available in any language"
+msgstr "L'element \"%s\" no està disponible en cap idioma."
+
+msgid "Item \'%s\' has no model"
+msgstr ""
+
+msgid "Items"
+msgstr "Elements"
+
+msgid "Open Web Item"
+msgstr "Element web obert"
+
+msgid "Published \"%1$s\" in language \"%2$s"
+msgstr "S'ha publicat \"%1$s\" en l'idioma \"%2$s"
+
+msgid "Published %s"
+msgstr "S'ha publicat %s"
+
+msgid "Resource(s) successfully exported."
+msgstr ""
+
+msgid "The OWI Item was successfully imported."
+msgstr "L'element OWI s'ha importat correctament."
+
+msgid "The ZIP archive containing the Open Web Item could not be open."
+msgstr "L'arxiu ZIP que conté l'element web obert no s'ha pogut obrir."
+
+msgid "This Open Web Item already has content. Go to Preview to see it or import a replacement below."
+msgstr "Aquest element web obert ja té contingut. Aneu a Previsualització per a veure'l o importeu-ne un reemplaçament a continuació."
+
+msgid "Validation of the imported file has failed"
+msgstr "La validació del fitxer importat ha fallat."
+
+msgid "Validation of the imported package has failed"
+msgstr "La validació del paquet importat ha fallat."
+
